@@ -1,0 +1,47 @@
+
+> jana-playbook@0.1.0 dev
+> next dev --port 3000
+
+▲ Next.js 16.2.9 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.1.4:3000
+✓ Ready in 3.8s
+Creating turbopack project { dir: 'D:\\projects\\jana-playbook', testMode: true }
+
+ GET / 200 in 3.2s (next.js: 2.8s, application-code: 429ms)
+ GET / 200 in 161ms (next.js: 23ms, application-code: 139ms)
+ GET / 200 in 366ms (next.js: 51ms, application-code: 316ms)
+ GET / 200 in 287ms (next.js: 33ms, application-code: 254ms)
+ GET / 200 in 246ms (next.js: 27ms, application-code: 219ms)
+ GET / 200 in 300ms (next.js: 26ms, application-code: 274ms)
+✓ Compiled in 6.6s
+ GET / 200 in 410ms (next.js: 292ms, application-code: 118ms)
+ GET / 200 in 320ms (next.js: 16ms, application-code: 304ms)
+ GET / 200 in 262ms (next.js: 21ms, application-code: 241ms)
+✓ Compiled in 4.3s
+ GET / 200 in 400ms (next.js: 329ms, application-code: 71ms)
+ GET / 200 in 242ms (next.js: 10ms, application-code: 232ms)
+ GET / 200 in 583ms (next.js: 43ms, application-code: 540ms)
+ GET / 200 in 133ms (next.js: 14ms, application-code: 119ms)
+✓ Compiled in 278ms
+ GET / 200 in 420ms (next.js: 156ms, application-code: 264ms)
+ GET / 200 in 244ms (next.js: 19ms, application-code: 225ms)
+✓ Compiled in 211ms
+ GET / 200 in 434ms (next.js: 283ms, application-code: 151ms)
+ GET / 200 in 196ms (next.js: 9ms, application-code: 186ms)
+ GET / 200 in 181ms (next.js: 25ms, application-code: 156ms)
+✓ Compiled in 202ms
+ GET / 200 in 328ms (next.js: 247ms, application-code: 81ms)
+✓ Compiled in 136ms
+ GET / 200 in 177ms (next.js: 11ms, application-code: 166ms)
+✓ Compiled in 181ms
+ GET / 200 in 731ms (next.js: 491ms, application-code: 239ms)
+✓ Compiled in 143ms
+ GET / 200 in 320ms (next.js: 14ms, application-code: 306ms)
+ GET / 200 in 284ms (next.js: 31ms, application-code: 253ms)
+ GET / 200 in 201ms (next.js: 18ms, application-code: 183ms)
+ GET / 200 in 787ms (next.js: 619ms, application-code: 168ms)
+ GET / 200 in 347ms (next.js: 17ms, application-code: 330ms)
+✓ Compiled in 128ms
+✓ Compiled in 195ms
+ GET / 200 in 216ms (next.js: 162ms, application-code: 55ms)
