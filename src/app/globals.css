@@ -322,7 +322,7 @@ a {
   color: var(--background);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   padding: 28px;
 }
 
