@@ -23,7 +23,11 @@
       "Bash(node check-teams.js)",
       "Bash(node check-teams2.js)",
       "Bash(pkill -f \"next dev\")",
-      "Bash(pkill -f \"node.*next.*dev\")"
+      "Bash(pkill -f \"node.*next.*dev\")",
+      "Bash(npx --no-install playwright --version)",
+      "Bash(node verify.js)",
+      "Read(//d//**)",
+      "Bash(NODE_PATH=\"/c/Users/Pattabi Raman/AppData/Local/npm-cache/_npx/e41f203b7505f1fb/node_modules\" node verify.js)"
     ],
     "additionalDirectories": [
       "d:\\projects\\jana-playbook\\.claude\\skills"

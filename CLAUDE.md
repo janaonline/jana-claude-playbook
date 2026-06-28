@@ -50,10 +50,12 @@ For copy-only changes (new prompt, new table row, new source link, new team-prom
 ## Conventions
 
 - Path alias `@/*` → `./src/*` (see [tsconfig.json](tsconfig.json)).
-- Theme persists to `localStorage` under key `jana-theme`; defaults to dark. Theme toggle uses `document.startViewTransition` for a circular reveal when available, falling back to an instant swap.
+- Theme persists to `localStorage` under key `jana-theme`; defaults to dark. Theme toggle uses `document.startViewTransition` for a circular reveal when available (1000ms, `cubic-bezier(0.4, 0, 0.2, 1)` — the standard ease-in-out curve, chosen for an evenly smooth feel over the full duration), falling back to an instant swap when unsupported or `prefers-reduced-motion` is set.
 - Strict TypeScript — no `any`, discriminated unions over loose optional fields (see `PlaybookSection`).
 - Team-tab state (`activeTeam`) lives in `PlaybookApp`, not inside `TeamPrompts` — this is what lets the sidebar "Teams" submenu and mobile menu jump to and activate a specific team tab via `goToTeam`.
 - The team search box (`TeamPrompts`) filters by subsequence fuzzy match on the team label (`fuzzyMatch`), not substring — distinct from the main `includesTerm` substring search used for the page-wide search box.
+- The team-tab buttons use a dedicated `.team-tabs` class (CSS grid, `grid-auto-flow: column` + `grid-template-rows: repeat(3, auto)` + `grid-auto-columns: max-content`, `overflow-x: auto`) instead of the `.tabs` flex-wrap class — this caps the 26-team picker to 3 rows and scrolls horizontally rather than wrapping indefinitely down the page. `Cheatsheet`'s category tabs still use plain `.tabs` (fewer groups, no scroll needed); don't merge the two without checking both usages.
+- Scrollbars are theme-aware: `scrollbar-color`/`::-webkit-scrollbar-*` in `globals.css` reference `--border`/`--surface`/`--muted`, so they recolor automatically with the theme — don't hardcode scrollbar colors elsewhere.
 
 ## Keeping docs current
 

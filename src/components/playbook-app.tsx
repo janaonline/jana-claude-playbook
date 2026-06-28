@@ -353,7 +353,7 @@ function TeamPrompts({
           </button>
         ) : null}
       </div>
-      <div className="tabs" role="tablist" aria-label="Team prompt groups">
+      <div className="team-tabs" role="tablist" aria-label="Team prompt groups">
         {matchingGroups.map((group) => (
           <button
             aria-selected={group.id === activeTeam}
@@ -459,7 +459,7 @@ export function PlaybookApp({ content }: { content: PlaybookContent }) {
           },
           {
             duration: 1000,
-            easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+            easing: "cubic-bezier(0.4, 0, 0.2, 1)",
             pseudoElement: "::view-transition-new(root)",
           } as ViewTransitionAnimationOptions,
         );
