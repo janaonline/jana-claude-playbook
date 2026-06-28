@@ -23,5 +23,10 @@
     "eslint-config-next": "16.2.9",
     "tailwindcss": "^4",
     "typescript": "^5"
-  }
+  },
+  "description": "An internal, single-page Next.js app for Janaagraha staff: a searchable, copy-ready guide to using Claude clearly, safely, and efficiently across policy, finance, research, and communications work. It covers data-sharing guardrails, token/context habits, a reusable prompt formula, a copy-ready profile/project instruction prompt, and team-specific prompt libraries (All Staff, Policy and Insights, Public Finance).",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
