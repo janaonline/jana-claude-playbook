@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(cd \"d:/projects/jana-playbook\" && mkdir -p .claude/skills/sync-project-docs && echo ok)",
+      "Edit(/.claude/skills/sync-project-docs/**)"
+    ],
+    "additionalDirectories": [
+      "d:\\projects\\jana-playbook\\.claude\\skills"
+    ]
+  }
+}
