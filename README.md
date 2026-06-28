@@ -1,6 +1,6 @@
 # Janaagraha Claude Playbook
 
-An internal, single-page Next.js app for Janaagraha staff: a searchable, copy-ready guide to using Claude clearly, safely, and efficiently across policy, finance, research, and communications work. It covers data-sharing guardrails, token/context habits, a reusable prompt formula, a copy-ready profile/project instruction prompt, and team-specific prompt libraries (All Staff, Policy and Insights, Public Finance).
+An internal, single-page Next.js app for Janaagraha staff: a searchable, copy-ready guide to using Claude clearly, safely, and efficiently across policy, finance, research, and communications work. It covers data-sharing guardrails, token/context habits, a reusable prompt formula, a Claude command cheat sheet (90 commands across 11 categories), a copy-ready profile/project instruction prompt, and team-specific prompt libraries for 8 program teams (All Staff, Policy and Insights, Public Finance, Urban Planning, Civic Participation, State Programs, Research & MEL, Comms & Partnerships) — with fuzzy search and a dedicated sidebar/mobile submenu for jumping straight to a team.
 
 ## Tech stack
 
@@ -41,14 +41,14 @@ src/
     page.tsx        # Entry point — wires playbookContent into PlaybookApp
     globals.css     # Tailwind import + light/dark theme tokens
   components/
-    playbook-app.tsx  # The entire UI: search, theme toggle, sections, prompt cards
+    playbook-app.tsx  # The entire UI: search, theme toggle, sections, prompt cards, cheat sheet
 public/
   brand/janaagraha-logo.svg
 ```
 
 ## Editing content
 
-Almost all text on the page — hero copy, principles, comparison tables, prompt examples, the instruction prompt, source links — lives in [content/playbook.ts](content/playbook.ts). Edit that file for copy changes; no component changes are needed unless you're adding a new *kind* of section (see [CLAUDE.md](CLAUDE.md) for that gotcha).
+Almost all text on the page — hero copy, principles, comparison tables, prompt examples, the command cheat sheet, the instruction prompt, team-prompt groups, source links — lives in [content/playbook.ts](content/playbook.ts). Adding a prompt to an existing team, a row to a table, or a command to the cheat sheet is a copy-only change there. No component changes are needed unless you're adding a new *kind* of section (see [CLAUDE.md](CLAUDE.md) for that gotcha).
 
 ## Deployment
 

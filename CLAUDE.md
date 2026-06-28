@@ -4,7 +4,7 @@ Guidance for Claude Code when working in this repository.
 
 ## What this is
 
-The **Janaagraha Claude Playbook** — a single-page Next.js app that renders an internal guide for Janaagraha staff on using Claude safely and efficiently (data sharing rules, prompt formulas, team-specific prompt libraries, a copy-ready profile/project instruction prompt). It is a static, content-driven app: no backend, no database, no auth.
+The **Janaagraha Claude Playbook** — a single-page Next.js app that renders an internal guide for Janaagraha staff on using Claude safely and efficiently (data sharing rules, prompt formulas, a Claude command cheat sheet, team-specific prompt libraries across 8 program teams, a copy-ready profile/project instruction prompt). It is a static, content-driven app: no backend, no database, no auth.
 
 ## Stack
 
@@ -28,9 +28,9 @@ There is **no test suite and no CI config** (no `.github/`, no jest/vitest setup
 
 ## Architecture
 
-- [content/types.ts](content/types.ts) — content schema. `PlaybookSection` is a discriminated union on `kind`: `"principles" | "table" | "prompts" | "instruction"`.
-- [content/playbook.ts](content/playbook.ts) — single source of truth for all page copy: hero text, nav, the 6 main sections (essentials/setup/safety/tokens/prompting/instructions), 3 team-prompt groups (All Staff, Policy and Insights, Public Finance), the sources list, and the embedded instruction prompt (`instructionPromptCharacters` tracks its length against `characterLimit`).
-- [src/components/playbook-app.tsx](src/components/playbook-app.tsx) — one `"use client"` component that renders the entire app: search/filter (`sectionMatches`, `promptMatches`), scroll progress bar, dark/light theme toggle, mobile nav drawer, copy-to-clipboard buttons, and per-`kind` section rendering via `SectionContent`.
+- [content/types.ts](content/types.ts) — content schema. `PlaybookSection` is a discriminated union on `kind`: `"principles" | "table" | "prompts" | "instruction" | "cheatsheet"`.
+- [content/playbook.ts](content/playbook.ts) — single source of truth for all page copy: hero text, nav, the 7 main sections (essentials/setup/safety/tokens/commands-reference/prompting/instructions), 8 team-prompt groups (All Staff, Policy and Insights, Public Finance, Urban Planning, Civic Participation, State Programs, Research & MEL, Comms & Partnerships), the sources list, and the embedded instruction prompt (`instructionPromptCharacters` tracks its length against `characterLimit`).
+- [src/components/playbook-app.tsx](src/components/playbook-app.tsx) — one `"use client"` component that renders the entire app: search/filter (`sectionMatches`, `promptMatches`), fuzzy team search (`fuzzyMatch`, subsequence match), scroll progress bar, dark/light theme toggle, mobile nav drawer (with a "Teams" sub-list), a sidebar "Teams" submenu synced to the active team tab, copy-to-clipboard buttons, and per-`kind` section rendering via `SectionContent` (including `Cheatsheet` for the `"cheatsheet"` kind and `TeamPrompts` for the team-prompt library).
 - [src/app/page.tsx](src/app/page.tsx) — entry point; wires `playbookContent` into `PlaybookApp`. Keep trivial.
 - [src/app/layout.tsx](src/app/layout.tsx) — root layout, Geist/Geist Mono fonts, page metadata.
 - [src/app/globals.css](src/app/globals.css) — Tailwind v4 import plus CSS custom-property theme tokens (light is the `:root` default; dark is `[data-theme="dark"]`).
@@ -43,13 +43,17 @@ Adding a new section `kind` touches **three** places together — missing one br
 2. `src/components/playbook-app.tsx` `SectionContent` — add the render branch.
 3. `src/components/playbook-app.tsx` `iconForSection` — add the icon mapping (falls back to `BookOpen` if omitted, so this one fails silently rather than breaking the build).
 
-For copy-only changes (new prompt, new table row, new source link), edit only [content/playbook.ts](content/playbook.ts) — no component changes needed.
+Also update `sectionMatches` (in `playbook-app.tsx`) so the new kind's text is searchable — TypeScript won't catch a missing branch there since the function falls through to the `instruction` shape by default; it's a function-end fallthrough, not an exhaustive switch.
+
+For copy-only changes (new prompt, new table row, new source link, new team-prompt group, new cheatsheet command), edit only [content/playbook.ts](content/playbook.ts) — no component changes needed. Adding a team-prompt group just needs a new entry in `teamPromptGroups`; the team tabs, fuzzy search, and sidebar/mobile submenus all derive from that array automatically.
 
 ## Conventions
 
 - Path alias `@/*` → `./src/*` (see [tsconfig.json](tsconfig.json)).
 - Theme persists to `localStorage` under key `jana-theme`; defaults to dark. Theme toggle uses `document.startViewTransition` for a circular reveal when available, falling back to an instant swap.
 - Strict TypeScript — no `any`, discriminated unions over loose optional fields (see `PlaybookSection`).
+- Team-tab state (`activeTeam`) lives in `PlaybookApp`, not inside `TeamPrompts` — this is what lets the sidebar "Teams" submenu and mobile menu jump to and activate a specific team tab via `goToTeam`.
+- The team search box (`TeamPrompts`) filters by subsequence fuzzy match on the team label (`fuzzyMatch`), not substring — distinct from the main `includesTerm` substring search used for the page-wide search box.
 
 ## Keeping docs current
 

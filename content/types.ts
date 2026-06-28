@@ -44,6 +44,19 @@ export type TeamPromptGroup = {
   prompts: PromptExample[];
 };
 
+export type CheatsheetCommand = {
+  command: string;
+  description: string;
+};
+
+export type CheatsheetGroup = {
+  id: string;
+  label: string;
+  emoji: string;
+  level?: string;
+  commands: CheatsheetCommand[];
+};
+
 export type PlaybookSection =
   | {
       id: string;
@@ -76,6 +89,14 @@ export type PlaybookSection =
       summary: string;
       kind: "instruction";
       instruction: InstructionPrompt;
+    }
+  | {
+      id: string;
+      eyebrow: string;
+      title: string;
+      summary: string;
+      kind: "cheatsheet";
+      groups: CheatsheetGroup[];
     };
 
 export type PlaybookContent = {

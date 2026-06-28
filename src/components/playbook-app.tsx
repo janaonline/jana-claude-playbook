@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import type {
+  CheatsheetGroup,
   ComparisonTable,
   PlaybookContent,
   PlaybookSection,
@@ -45,6 +46,7 @@ const iconForSection = {
   setup: BookOpen,
   safety: ShieldCheck,
   tokens: Zap,
+  "commands-reference": Zap,
   prompting: FileText,
   instructions: Clipboard,
   "team-prompts": Database,
@@ -53,6 +55,17 @@ const iconForSection = {
 
 function includesTerm(value: string, term: string) {
   return value.toLowerCase().includes(term);
+}
+
+function fuzzyMatch(needle: string, haystack: string): boolean {
+  if (!needle) return true;
+  const n = needle.toLowerCase();
+  const h = haystack.toLowerCase();
+  let ni = 0;
+  for (let i = 0; i < h.length && ni < n.length; i++) {
+    if (h[i] === n[ni]) ni++;
+  }
+  return ni === n.length;
 }
 
 function promptMatches(prompt: PromptExample, term: string) {
@@ -86,6 +99,13 @@ function sectionMatches(section: PlaybookSection, term: string) {
   }
   if (section.kind === "prompts") {
     return section.prompts.some((prompt) => promptMatches(prompt, term));
+  }
+  if (section.kind === "cheatsheet") {
+    return section.groups.some((group) =>
+      [group.label, ...group.commands.flatMap((cmd) => [cmd.command, cmd.description])].some(
+        (value) => includesTerm(value, term),
+      ),
+    );
   }
   return [section.instruction.title, section.instruction.description, section.instruction.prompt].some(
     (value) => includesTerm(value, term),
@@ -208,6 +228,10 @@ function SectionContent({ section }: { section: PlaybookSection }) {
     );
   }
 
+  if (section.kind === "cheatsheet") {
+    return <Cheatsheet groups={section.groups} />;
+  }
+
   return (
     <div className="instruction-card">
       <div>
@@ -226,31 +250,79 @@ function SectionContent({ section }: { section: PlaybookSection }) {
   );
 }
 
+function Cheatsheet({ groups }: { groups: CheatsheetGroup[] }) {
+  const [activeGroup, setActiveGroup] = useState(groups[0]?.id ?? "");
+  const group = groups.find((g) => g.id === activeGroup) ?? groups[0];
+
+  return (
+    <>
+      <div className="tabs" role="tablist" aria-label="Command categories">
+        {groups.map((g) => (
+          <button
+            aria-selected={g.id === activeGroup}
+            className={g.id === activeGroup ? "tab active" : "tab"}
+            key={g.id}
+            onClick={() => setActiveGroup(g.id)}
+            role="tab"
+            type="button"
+          >
+            {g.emoji} {g.label}
+          </button>
+        ))}
+      </div>
+      {group ? (
+        <div className="team-panel">
+          {group.level ? <p className="team-summary">{group.level}</p> : null}
+          <div className="cheatsheet-grid">
+            {group.commands.map((cmd) => (
+              <div className="cheatsheet-card" key={cmd.command}>
+                <code className="cheatsheet-cmd">{cmd.command}</code>
+                <span className="cheatsheet-desc">{cmd.description}</span>
+                <CopyButton value={cmd.command} label="Copy" />
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : null}
+    </>
+  );
+}
+
 function TeamPrompts({
   groups,
   term,
+  activeTeam,
+  setActiveTeam,
 }: {
   groups: TeamPromptGroup[];
   term: string;
+  activeTeam: string;
+  setActiveTeam: (id: string) => void;
 }) {
+  const [teamSearch, setTeamSearch] = useState("");
+
   const matchingGroups = useMemo(() => {
-    if (!term) return groups;
-    return groups
-      .map((group) => ({
-        ...group,
-        prompts: group.prompts.filter((prompt) => promptMatches(prompt, term)),
-      }))
-      .filter(
-        (group) =>
-          includesTerm(group.label, term) ||
-          includesTerm(group.summary, term) ||
-          group.prompts.length > 0,
-      );
-  }, [groups, term]);
+    let result = groups;
+    if (term) {
+      result = result
+        .map((group) => ({
+          ...group,
+          prompts: group.prompts.filter((prompt) => promptMatches(prompt, term)),
+        }))
+        .filter(
+          (group) =>
+            includesTerm(group.label, term) ||
+            includesTerm(group.summary, term) ||
+            group.prompts.length > 0,
+        );
+    }
+    if (teamSearch.trim()) {
+      result = result.filter((group) => fuzzyMatch(teamSearch.trim(), group.label));
+    }
+    return result;
+  }, [groups, term, teamSearch]);
 
-  const [active, setActive] = useState(groups[0]?.id ?? "");
-
-  const activeGroup = matchingGroups.find((group) => group.id === active) ?? matchingGroups[0];
+  const activeGroup = matchingGroups.find((group) => group.id === activeTeam) ?? matchingGroups[0];
 
   return (
     <section className="content-section" id="team-prompts">
@@ -262,13 +334,32 @@ function TeamPrompts({
           checkpoint so the output never skips human judgement.
         </p>
       </div>
+      <div className="team-search-box">
+        <Search size={14} />
+        <input
+          aria-label="Search teams"
+          placeholder="Find a team…"
+          value={teamSearch}
+          onChange={(event) => {
+            const value = event.target.value;
+            setTeamSearch(value);
+            const first = groups.find((group) => fuzzyMatch(value.trim(), group.label));
+            if (first) setActiveTeam(first.id);
+          }}
+        />
+        {teamSearch ? (
+          <button type="button" onClick={() => setTeamSearch("")} aria-label="Clear search">
+            <X size={12} />
+          </button>
+        ) : null}
+      </div>
       <div className="tabs" role="tablist" aria-label="Team prompt groups">
         {matchingGroups.map((group) => (
           <button
-            aria-selected={group.id === active}
-            className={group.id === active ? "tab active" : "tab"}
+            aria-selected={group.id === activeTeam}
+            className={group.id === activeTeam ? "tab active" : "tab"}
             key={group.id}
-            onClick={() => setActive(group.id)}
+            onClick={() => setActiveTeam(group.id)}
             role="tab"
             type="button"
           >
@@ -300,6 +391,12 @@ export function PlaybookApp({ content }: { content: PlaybookContent }) {
   const [query, setQuery] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [activeTeam, setActiveTeam] = useState(content.teamPromptGroups[0]?.id ?? "");
+
+  function goToTeam(teamId: string) {
+    setActiveTeam(teamId);
+    document.getElementById("team-prompts")?.scrollIntoView({ behavior: "smooth" });
+  }
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
@@ -422,6 +519,20 @@ export function PlaybookApp({ content }: { content: PlaybookContent }) {
               {item.label}
             </a>
           ))}
+          <div className="mobile-menu-subheading">Teams</div>
+          {content.teamPromptGroups.map((group) => (
+            <a
+              href="#team-prompts"
+              key={group.id}
+              onClick={(event) => {
+                event.preventDefault();
+                setMenuOpen(false);
+                goToTeam(group.id);
+              }}
+            >
+              {group.label}
+            </a>
+          ))}
         </div>
       ) : null}
 
@@ -479,6 +590,22 @@ export function PlaybookApp({ content }: { content: PlaybookContent }) {
                 );
               })}
             </div>
+            <div className="outline-submenu">
+              <p className="outline-submenu-label">Teams</p>
+              {content.teamPromptGroups.map((group) => (
+                <a
+                  href="#team-prompts"
+                  key={group.id}
+                  className={`outline-sublink${activeTeam === group.id ? " active" : ""}`}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    goToTeam(group.id);
+                  }}
+                >
+                  {group.label}
+                </a>
+              ))}
+            </div>
           </aside>
 
           <div className="content-flow">
@@ -505,7 +632,12 @@ export function PlaybookApp({ content }: { content: PlaybookContent }) {
               </div>
             ) : null}
 
-            <TeamPrompts groups={content.teamPromptGroups} term={term} />
+            <TeamPrompts
+              groups={content.teamPromptGroups}
+              term={term}
+              activeTeam={activeTeam}
+              setActiveTeam={setActiveTeam}
+            />
 
             <section className="content-section" id="sources">
               <div className="section-head">

@@ -3,7 +3,13 @@
     "allow": [
       "Bash(npm run *)",
       "Bash(cd \"d:/projects/jana-playbook\" && mkdir -p .claude/skills/sync-project-docs && echo ok)",
-      "Edit(/.claude/skills/sync-project-docs/**)"
+      "Edit(/.claude/skills/sync-project-docs/**)",
+      "Skill(run)",
+      "Skill(run:*)",
+      "Bash(chromium-cli --help)",
+      "Bash(npx --yes playwright --version)",
+      "Bash(npm ls *)",
+      "Bash(timeout 30 bash -c 'until curl -sf http://localhost:3000 >/dev/null; do sleep 1; done')"
     ],
     "additionalDirectories": [
       "d:\\projects\\jana-playbook\\.claude\\skills"
