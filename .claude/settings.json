@@ -9,7 +9,21 @@
       "Bash(chromium-cli --help)",
       "Bash(npx --yes playwright --version)",
       "Bash(npm ls *)",
-      "Bash(timeout 30 bash -c 'until curl -sf http://localhost:3000 >/dev/null; do sleep 1; done')"
+      "Bash(timeout 30 bash -c 'until curl -sf http://localhost:3000 >/dev/null; do sleep 1; done')",
+      "Bash(node -e ' *)",
+      "Bash(node --experimental-strip-types -e ' *)",
+      "Bash(awk ' *)",
+      "Bash(npx --no-install chromium-cli --help)",
+      "Bash(node -e \"require.resolve\\('playwright'\\)\")",
+      "Bash(npx playwright *)",
+      "Bash(npx --yes playwright install chromium --with-deps)",
+      "Bash(npm init *)",
+      "Bash(npm install *)",
+      "Bash(echo \"EXIT:$?\")",
+      "Bash(node check-teams.js)",
+      "Bash(node check-teams2.js)",
+      "Bash(pkill -f \"next dev\")",
+      "Bash(pkill -f \"node.*next.*dev\")"
     ],
     "additionalDirectories": [
       "d:\\projects\\jana-playbook\\.claude\\skills"

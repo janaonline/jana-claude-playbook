@@ -1,6 +1,6 @@
 # Janaagraha Claude Playbook
 
-An internal, single-page Next.js app for Janaagraha staff: a searchable, copy-ready guide to using Claude clearly, safely, and efficiently across policy, finance, research, and communications work. It covers data-sharing guardrails, token/context habits, a reusable prompt formula, a Claude command cheat sheet (90 commands across 11 categories), a copy-ready profile/project instruction prompt, and team-specific prompt libraries for 8 program teams (All Staff, Policy and Insights, Public Finance, Urban Planning, Civic Participation, State Programs, Research & MEL, Comms & Partnerships) — with fuzzy search and a dedicated sidebar/mobile submenu for jumping straight to a team.
+An internal, single-page Next.js app for Janaagraha staff: a searchable, copy-ready guide to using Claude clearly, safely, and efficiently across policy, finance, research, and communications work. It covers data-sharing guardrails, token/context habits, a reusable prompt formula, a Claude command cheat sheet (90 commands across 11 categories), a copy-ready profile/project instruction prompt, and team-specific prompt libraries for 26 teams — All Staff plus 25 program/project/functional teams across 6 verticals (Urban Planning and Spatial Design, Civic Participation and Grassroots Engagement, Public Finance Management, Regional State Program Deployments, Sectoral Policies and National Advocacy, and Horizontal Support and Institutional Strategy) — with fuzzy search and a dedicated sidebar/mobile submenu for jumping straight to a team.
 
 ## Tech stack
 

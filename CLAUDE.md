@@ -4,7 +4,7 @@ Guidance for Claude Code when working in this repository.
 
 ## What this is
 
-The **Janaagraha Claude Playbook** — a single-page Next.js app that renders an internal guide for Janaagraha staff on using Claude safely and efficiently (data sharing rules, prompt formulas, a Claude command cheat sheet, team-specific prompt libraries across 8 program teams, a copy-ready profile/project instruction prompt). It is a static, content-driven app: no backend, no database, no auth.
+The **Janaagraha Claude Playbook** — a single-page Next.js app that renders an internal guide for Janaagraha staff on using Claude safely and efficiently (data sharing rules, prompt formulas, a Claude command cheat sheet, team-specific prompt libraries across 25 program teams plus All Staff, a copy-ready profile/project instruction prompt). It is a static, content-driven app: no backend, no database, no auth.
 
 ## Stack
 
@@ -29,7 +29,7 @@ There is **no test suite and no CI config** (no `.github/`, no jest/vitest setup
 ## Architecture
 
 - [content/types.ts](content/types.ts) — content schema. `PlaybookSection` is a discriminated union on `kind`: `"principles" | "table" | "prompts" | "instruction" | "cheatsheet"`.
-- [content/playbook.ts](content/playbook.ts) — single source of truth for all page copy: hero text, nav, the 7 main sections (essentials/setup/safety/tokens/commands-reference/prompting/instructions), 8 team-prompt groups (All Staff, Policy and Insights, Public Finance, Urban Planning, Civic Participation, State Programs, Research & MEL, Comms & Partnerships), the sources list, and the embedded instruction prompt (`instructionPromptCharacters` tracks its length against `characterLimit`).
+- [content/playbook.ts](content/playbook.ts) — single source of truth for all page copy: hero text, nav, the 7 main sections (essentials/setup/safety/tokens/commands-reference/prompting/instructions), 26 team-prompt groups (`all-staff` plus 25 program teams, ordered by vertical — Urban Planning and Spatial Design; Civic Participation and Grassroots Engagement; Public Finance Management; Regional State Program Deployments; Sectoral Policies and National Advocacy; Horizontal Support and Institutional Strategy — each with 5+ prompts), the sources list, and the embedded instruction prompt (`instructionPromptCharacters` tracks its length against `characterLimit`).
 - [src/components/playbook-app.tsx](src/components/playbook-app.tsx) — one `"use client"` component that renders the entire app: search/filter (`sectionMatches`, `promptMatches`), fuzzy team search (`fuzzyMatch`, subsequence match), scroll progress bar, dark/light theme toggle, mobile nav drawer (with a "Teams" sub-list), a sidebar "Teams" submenu synced to the active team tab, copy-to-clipboard buttons, and per-`kind` section rendering via `SectionContent` (including `Cheatsheet` for the `"cheatsheet"` kind and `TeamPrompts` for the team-prompt library).
 - [src/app/page.tsx](src/app/page.tsx) — entry point; wires `playbookContent` into `PlaybookApp`. Keep trivial.
 - [src/app/layout.tsx](src/app/layout.tsx) — root layout, Geist/Geist Mono fonts, page metadata.
