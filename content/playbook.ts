@@ -63,11 +63,6 @@ export const playbookContent: PlaybookContent = {
         value: "Verify",
         detail: "AI output is a first draft until a human checks sources.",
       },
-      {
-        label: "Best fit",
-        value: "Internal",
-        detail: "Use Vercel protection or SSO for access control.",
-      },
     ],
   },
   sections: [
