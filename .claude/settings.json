@@ -27,7 +27,20 @@
       "Bash(npx --no-install playwright --version)",
       "Bash(node verify.js)",
       "Read(//d//**)",
-      "Bash(NODE_PATH=\"/c/Users/Pattabi Raman/AppData/Local/npm-cache/_npx/e41f203b7505f1fb/node_modules\" node verify.js)"
+      "Bash(NODE_PATH=\"/c/Users/Pattabi Raman/AppData/Local/npm-cache/_npx/e41f203b7505f1fb/node_modules\" node verify.js)",
+      "Bash(ls -la \"C:\\\\Users\\\\Pattabi Raman\\\\.claude\\\\plans\\\\\" 2>/dev/null)",
+      "Read(//c/Users/Pattabi Raman/.claude/plans\" 2>/dev/**)",
+      "Bash(git fetch *)",
+      "Bash(node -e \"const icons=require\\('lucide-react'\\); console.log\\('Wrench' in icons, 'ListChecks' in icons, 'CheckCircle2' in icons, 'XCircle' in icons, 'Lightbulb' in icons\\)\")",
+      "Bash(timeout 40 bash -c 'until curl -sf http://localhost:3000 >/dev/null; do sleep 1; done')",
+      "Bash(npx --no-install playwright install chromium --with-deps)",
+      "Bash(node check.js)",
+      "Bash(pkill -f \"next-server\")",
+      "Bash(pkill -f \"npm run dev\")",
+      "Bash(npx tsc *)",
+      "Bash(node hydration-check.js)",
+      "Bash(node toggle-persist-check.js)",
+      "Bash(node sources-removed-check.js)"
     ],
     "additionalDirectories": [
       "d:\\projects\\jana-playbook\\.claude\\skills"

@@ -5,28 +5,33 @@ import { flushSync } from "react-dom";
 import {
   BookOpen,
   Check,
+  CheckCircle2,
   ChevronRight,
-  Clipboard,
   Copy,
   Database,
   FileText,
+  Lightbulb,
+  ListChecks,
   Menu,
   Moon,
   Search,
   ShieldCheck,
   Sparkles,
   Sun,
+  Wrench,
   X,
-  Zap,
+  XCircle,
 } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useState } from "react";
 import type {
   CheatsheetGroup,
   ComparisonTable,
+  DosDontsGroup,
   PlaybookContent,
   PlaybookSection,
   PromptExample,
   TeamPromptGroup,
+  ToolCard,
 } from "../../content/types";
 
 type Theme = "light" | "dark";
@@ -45,12 +50,10 @@ const iconForSection = {
   essentials: Sparkles,
   setup: BookOpen,
   safety: ShieldCheck,
-  tokens: Zap,
-  "commands-reference": Zap,
+  dosdonts: ListChecks,
+  tools: Wrench,
   prompting: FileText,
-  instructions: Clipboard,
   "team-prompts": Database,
-  sources: BookOpen,
 } as const;
 
 function includesTerm(value: string, term: string) {
@@ -104,6 +107,20 @@ function sectionMatches(section: PlaybookSection, term: string) {
     return section.groups.some((group) =>
       [group.label, ...group.commands.flatMap((cmd) => [cmd.command, cmd.description])].some(
         (value) => includesTerm(value, term),
+      ),
+    );
+  }
+  if (section.kind === "tools") {
+    return section.tools.some((tool) =>
+      [tool.name, tool.tagline, tool.setupTip, ...tool.bestFor, ...tool.notFor].some((value) =>
+        includesTerm(value, term),
+      ),
+    );
+  }
+  if (section.kind === "dosdonts") {
+    return section.groups.some((group) =>
+      [group.label, ...group.items.flatMap((item) => [item.text, item.detail ?? ""])].some((value) =>
+        includesTerm(value, term),
       ),
     );
   }
@@ -232,6 +249,14 @@ function SectionContent({ section }: { section: PlaybookSection }) {
     return <Cheatsheet groups={section.groups} />;
   }
 
+  if (section.kind === "tools") {
+    return <ToolsGuide tools={section.tools} />;
+  }
+
+  if (section.kind === "dosdonts") {
+    return <DosDonts groups={section.groups} />;
+  }
+
   return (
     <div className="instruction-card">
       <div>
@@ -282,6 +307,108 @@ function Cheatsheet({ groups }: { groups: CheatsheetGroup[] }) {
               </div>
             ))}
           </div>
+        </div>
+      ) : null}
+    </>
+  );
+}
+
+const tierClassName: Record<ToolCard["tier"], string> = {
+  Pro: "tier-pro",
+  Advanced: "tier-advanced",
+  Plus: "tier-plus",
+  Free: "tier-free",
+};
+
+function ToolsGuide({ tools }: { tools: ToolCard[] }) {
+  return (
+    <div className="tool-grid">
+      {tools.map((tool) => (
+        <article className="tool-card" key={tool.id}>
+          <div className="tool-card__header">
+            <div className="tool-card__name">
+              <span className="tool-emoji" aria-hidden="true">
+                {tool.emoji}
+              </span>
+              <h3>{tool.name}</h3>
+            </div>
+            <span className={`tier-badge ${tierClassName[tool.tier]}`}>{tool.tier}</span>
+          </div>
+          <p className="tool-tagline">{tool.tagline}</p>
+          <div className="tool-columns">
+            <div>
+              <p className="tool-column-label tool-column-label--good">✅ Good for</p>
+              <ul className="tool-list tool-list--good">
+                {tool.bestFor.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <p className="tool-column-label tool-column-label--warn">⚠️ Not for</p>
+              <ul className="tool-list tool-list--warn">
+                {tool.notFor.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          <div className="tool-setup-tip">
+            <Lightbulb size={16} />
+            <span>
+              <strong>Setup tip: </strong>
+              {tool.setupTip}
+            </span>
+          </div>
+          <span className={tool.pilotAccess ? "pilot-badge pilot-badge--available" : "pilot-badge"}>
+            {tool.pilotAccess ? "Pilot access available" : "Request access"}
+          </span>
+        </article>
+      ))}
+    </div>
+  );
+}
+
+const dosDontsIcon = {
+  do: CheckCircle2,
+  dont: XCircle,
+  tip: Lightbulb,
+} as const;
+
+function DosDonts({ groups }: { groups: DosDontsGroup[] }) {
+  const [activeGroup, setActiveGroup] = useState(groups[0]?.id ?? "");
+  const group = groups.find((g) => g.id === activeGroup) ?? groups[0];
+
+  return (
+    <>
+      <div className="tabs" role="tablist" aria-label="Dos and don'ts categories">
+        {groups.map((g) => (
+          <button
+            aria-selected={g.id === activeGroup}
+            className={g.id === activeGroup ? "tab active" : "tab"}
+            key={g.id}
+            onClick={() => setActiveGroup(g.id)}
+            role="tab"
+            type="button"
+          >
+            {g.label}
+          </button>
+        ))}
+      </div>
+      {group ? (
+        <div className="dosdonts-list">
+          {group.items.map((item) => {
+            const Icon = dosDontsIcon[item.type];
+            return (
+              <div className={`dosdonts-item dosdonts-item--${item.type}`} key={item.text}>
+                <Icon size={18} />
+                <div>
+                  <p className="dosdonts-text">{item.text}</p>
+                  {item.detail ? <p className="dosdonts-detail">{item.detail}</p> : null}
+                </div>
+              </div>
+            );
+          })}
         </div>
       ) : null}
     </>
@@ -384,10 +511,7 @@ function TeamPrompts({
 }
 
 export function PlaybookApp({ content }: { content: PlaybookContent }) {
-  const [theme, setTheme] = useState<Theme>(() => {
-    if (typeof window === "undefined") return "dark";
-    return window.localStorage.getItem("jana-theme") === "light" ? "light" : "dark";
-  });
+  const [theme, setTheme] = useState<Theme>("dark");
   const [query, setQuery] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -397,6 +521,15 @@ export function PlaybookApp({ content }: { content: PlaybookContent }) {
     setActiveTeam(teamId);
     document.getElementById("team-prompts")?.scrollIntoView({ behavior: "smooth" });
   }
+
+  useLayoutEffect(() => {
+    // The initial render must match the server's "dark" default exactly to avoid a
+    // hydration mismatch, so the persisted preference is restored only after mount.
+    if (window.localStorage.getItem("jana-theme") === "light") {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- one-time restore from localStorage, not a cascading update
+      setTheme("light");
+    }
+  }, []);
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
@@ -543,8 +676,8 @@ export function PlaybookApp({ content }: { content: PlaybookContent }) {
             <h1>{content.hero.title}</h1>
             <p>{content.hero.summary}</p>
             <div className="hero-actions">
-              <a className="primary-action" href="#instructions">
-                Copy instruction prompt
+              <a className="primary-action" href="#dosdonts">
+                Read the Dos &amp; Don&apos;ts
                 <ChevronRight size={17} />
               </a>
               <a className="secondary-action" href="#team-prompts">
@@ -628,7 +761,7 @@ export function PlaybookApp({ content }: { content: PlaybookContent }) {
 
             {visibleSections.length === 0 ? (
               <div className="empty-state">
-                No main sections matched your search. Try a team label, source topic, or prompt keyword.
+                No main sections matched your search. Try a team label or prompt keyword.
               </div>
             ) : null}
 
@@ -638,28 +771,6 @@ export function PlaybookApp({ content }: { content: PlaybookContent }) {
               activeTeam={activeTeam}
               setActiveTeam={setActiveTeam}
             />
-
-            <section className="content-section" id="sources">
-              <div className="section-head">
-                <p className="eyebrow">
-                  <BookOpen size={15} />
-                  Source refresh
-                </p>
-                <h2>References used for the refreshed guidance</h2>
-                <p>
-                  These links are kept in content so a future owner can update guidance without
-                  changing the app shell.
-                </p>
-              </div>
-              <div className="source-list">
-                {content.sources.map((source) => (
-                  <a href={source.href} key={source.href} target="_blank" rel="noreferrer">
-                    <span>{source.label}</span>
-                    <ChevronRight size={16} />
-                  </a>
-                ))}
-              </div>
-            </section>
           </div>
         </div>
       </main>

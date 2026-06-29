@@ -1,8 +1,3 @@
-export type SourceLink = {
-  label: string;
-  href: string;
-};
-
 export type Metric = {
   label: string;
   value: string;
@@ -57,6 +52,30 @@ export type CheatsheetGroup = {
   commands: CheatsheetCommand[];
 };
 
+export type ToolCard = {
+  id: string;
+  name: string;
+  emoji: string;
+  tier: "Pro" | "Advanced" | "Plus" | "Free";
+  tagline: string;
+  bestFor: string[];
+  notFor: string[];
+  setupTip: string;
+  pilotAccess: boolean;
+};
+
+export type DosDontsItem = {
+  type: "do" | "dont" | "tip";
+  text: string;
+  detail?: string;
+};
+
+export type DosDontsGroup = {
+  id: string;
+  label: string;
+  items: DosDontsItem[];
+};
+
 export type PlaybookSection =
   | {
       id: string;
@@ -97,6 +116,22 @@ export type PlaybookSection =
       summary: string;
       kind: "cheatsheet";
       groups: CheatsheetGroup[];
+    }
+  | {
+      id: string;
+      eyebrow: string;
+      title: string;
+      summary: string;
+      kind: "tools";
+      tools: ToolCard[];
+    }
+  | {
+      id: string;
+      eyebrow: string;
+      title: string;
+      summary: string;
+      kind: "dosdonts";
+      groups: DosDontsGroup[];
     };
 
 export type PlaybookContent = {
@@ -112,5 +147,4 @@ export type PlaybookContent = {
   };
   sections: PlaybookSection[];
   teamPromptGroups: TeamPromptGroup[];
-  sources: SourceLink[];
 };
