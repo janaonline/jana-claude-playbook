@@ -18,7 +18,7 @@ export const toolkitContent: PlaybookContent = {
     badge: "Janaagraha AI Pilot 2026",
     title: "Use AI like a careful colleague, not a magic answer machine.",
     summary:
-      "This app turns the AI Pilot workshops into a searchable, copy-ready workspace for better prompts, safer data handling, and clearer team habits across every tool in the pilot.",
+      "This toolkit is a searchable, copy-ready workspace for better prompts, safer data handling, and clearer team habits across every tool in the AI Pilot.",
     metrics: [
       {
         label: "The one rule",
@@ -131,7 +131,7 @@ export const toolkitContent: PlaybookContent = {
       eyebrow: "Quick rules",
       title: "What to do, what not to do, and what to watch for",
       summary:
-        "Drawn from the PFM workshop and ASICS AI workshop. These apply regardless of which tool you are using.",
+        "These apply regardless of which tool you are using.",
       kind: "dosdonts",
       groups: [
         {
@@ -142,7 +142,7 @@ export const toolkitContent: PlaybookContent = {
               type: "do",
               text: "Use the 6-part formula",
               detail:
-                "Role → Task → Context → Fallback → Guardrail → Format. Every prompt in the workshops uses this structure. Plain English works but Markdown (#, ##, **) is more reliable.",
+                "Role → Task → Context → Fallback → Guardrail → Format. Every prompt in this toolkit uses this structure. Plain English works but Markdown (#, ##, **) is more reliable.",
             },
             {
               type: "do",
@@ -472,7 +472,7 @@ export const toolkitContent: PlaybookContent = {
     {
       id: "prompting",
       eyebrow: "Prompt formula",
-      title: "The 6-part formula used in every Janaagraha workshop prompt",
+      title: "The 6-part formula used in every Janaagraha AI Startup Toolkit prompt",
       summary:
         "This structure works across all AI tools in the pilot — Claude Pro, Gemini Advanced, ChatGPT Plus, and Perplexity Pro.",
       kind: "prompts",

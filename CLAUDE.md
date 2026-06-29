@@ -4,7 +4,7 @@ Guidance for Claude Code when working in this repository.
 
 ## What this is
 
-The **Janaagraha AI Startup Toolkit** — a single-page Next.js app that renders an internal starter kit for Janaagraha staff on the AI Pilot: data-sharing rules, a reusable prompt formula, a Dos & Don'ts reference drawn from internal workshops, a guide to the six pilot tools (Claude Pro, Gemini Advanced, NotebookLM, Perplexity Pro, ChatGPT Plus, Canva Pro), and team-specific prompt libraries across 25 program teams plus All Staff. It is a static, content-driven app: no backend, no database, no auth.
+The **Janaagraha AI Startup Toolkit** — a single-page Next.js app that renders an internal starter kit for Janaagraha staff on the AI Pilot: data-sharing rules, a reusable prompt formula, a Dos & Don'ts reference, a guide to the six pilot tools (Claude Pro, Gemini Advanced, NotebookLM, Perplexity Pro, ChatGPT Plus, Canva Pro), and team-specific prompt libraries across 25 program teams plus All Staff. It is a static, content-driven app: no backend, no database, no auth.
 
 ## Stack
 
@@ -56,7 +56,7 @@ For copy-only changes (new prompt, new table row, new team-prompt group, new too
 - The team search box (`TeamPrompts`) filters by subsequence fuzzy match on the team label (`fuzzyMatch`), not substring — distinct from the main `includesTerm` substring search used for the page-wide search box.
 - The team-tab buttons use a dedicated `.team-tabs` class (CSS grid, `grid-auto-flow: column` + `grid-template-rows: repeat(3, auto)` + `grid-auto-columns: max-content`, `overflow-x: auto`) instead of the `.tabs` flex-wrap class — this caps the 26-team picker to 3 rows and scrolls horizontally rather than wrapping indefinitely down the page. `DosDonts`'s category tabs and the (now-unused) `Cheatsheet` component still use plain `.tabs` (fewer groups, no scroll needed); don't merge the two without checking both usages.
 - Scrollbars are theme-aware: `scrollbar-color`/`::-webkit-scrollbar-*` in `globals.css` reference `--border`/`--surface`/`--muted`, so they recolor automatically with the theme — don't hardcode scrollbar colors elsewhere.
-- Tool tier badges (`ToolCard.tier`: `"Pro" | "Advanced" | "Plus" | "Free"`) map to fixed colors via `tierClassName` in `playbook-app.tsx` — hardcoded hex tints (not theme tokens), so they look the same in light and dark mode by design.
+- Tool tier badges (`ToolCard.tier`: `"Pro" | "Advanced" | "Plus" | "Free"`) map to fixed colors via `tierClassName` in `playbook-app.tsx`. Pro/Advanced/Free use hardcoded hex tints (not theme tokens) so they look the same in light and dark mode by design. The Plus badge's text uses `var(--success)` instead — a theme-aware token (`globals.css`, light: `#166534`, dark: `#4ade80`) — because the flat hardcoded green failed contrast against the light theme's cream background; the same token also drives the "✅ Good for" label, its "✓" bullets, the "Pilot access available" badge, and the Dos & Don'ts "Do" icon, which had the identical contrast bug.
 
 ## Keeping docs current
 
