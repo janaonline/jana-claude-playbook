@@ -12,6 +12,7 @@
   --accent-2: #2acad9;
   --accent-3: #49b171;
   --accent-4: #e72463;
+  --success: #166534;
   --nav-bg: #feda0a;
   --nav-text: #10110f;
   --nav-hover: #e7c700;
@@ -40,6 +41,7 @@
   --accent-2: #2acad9;
   --accent-3: #49b171;
   --accent-4: #f0858c;
+  --success: #4ade80;
   --nav-bg: #090a08;
   --nav-text: #feda0a;
   --nav-hover: #1f2118;
@@ -867,7 +869,7 @@ td {
 
 .tier-plus {
   background: #22c55e20;
-  color: #4ade80;
+  color: var(--success);
 }
 
 .tier-free {
@@ -896,7 +898,7 @@ td {
 }
 
 .tool-column-label--good {
-  color: #4ade80;
+  color: var(--success);
 }
 
 .tool-column-label--warn {
@@ -921,7 +923,7 @@ td {
 
 .tool-list--good li::before {
   content: "✓";
-  color: #4ade80;
+  color: var(--success);
   left: 0;
   position: absolute;
 }
@@ -964,7 +966,7 @@ td {
 .pilot-badge--available {
   background: #22c55e20;
   border-color: color-mix(in srgb, #22c55e, transparent 40%);
-  color: #4ade80;
+  color: var(--success);
 }
 
 .dosdonts-list {
@@ -988,7 +990,7 @@ td {
 }
 
 .dosdonts-item--do svg {
-  color: #4ade80;
+  color: var(--success);
 }
 
 .dosdonts-item--dont {

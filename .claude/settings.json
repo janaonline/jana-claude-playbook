@@ -40,7 +40,9 @@
       "Bash(npx tsc *)",
       "Bash(node hydration-check.js)",
       "Bash(node toggle-persist-check.js)",
-      "Bash(node sources-removed-check.js)"
+      "Bash(node sources-removed-check.js)",
+      "Read(//tmp/**)",
+      "Bash(node verify_tier.js)"
     ],
     "additionalDirectories": [
       "d:\\projects\\jana-playbook\\.claude\\skills"
