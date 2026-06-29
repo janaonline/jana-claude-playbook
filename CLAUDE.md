@@ -4,7 +4,7 @@ Guidance for Claude Code when working in this repository.
 
 ## What this is
 
-The **Janaagraha AI Startup Toolkit** — a single-page Next.js app that renders an internal starter kit for Janaagraha staff on the AI Pilot: data-sharing rules, a reusable prompt formula, a Dos & Don'ts reference drawn from internal workshops, a guide to the six pilot tools (Claude Pro, Gemini Advanced, NotebookLM, Perplexity Pro, ChatGPT Plus, Canva Pro), and team-specific prompt libraries across 25 program teams plus All Staff. It is a static, content-driven app: no backend, no database, no auth.
+The **Janaagraha AI Startup Toolkit** — a single-page Next.js app that renders an internal starter kit for Janaagraha staff on the AI Pilot: data-sharing rules, a reusable prompt formula, a Dos & Don'ts reference, a guide to the six pilot tools (Claude Pro, Gemini Advanced, NotebookLM, Perplexity Pro, ChatGPT Plus, Canva Pro), and team-specific prompt libraries across 25 program teams plus All Staff. It is a static, content-driven app: no backend, no database, no auth.
 
 ## Stack
 
