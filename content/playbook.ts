@@ -1,68 +1,35 @@
 import type { PlaybookContent } from "./types";
 
-const instructionPrompt = `Use these instructions for Janaagraha tool-evaluation work.
-
-Default behavior:
-- For exploratory or evaluative queries about tool safety, efficiency, integration architecture, deployment choices, or trade-offs, ask 2-3 targeted clarifying questions before answering.
-- Skip clarifying questions for factual lookups, simple commands, or when the context and desired output are already clear.
-- State assumptions explicitly before analysis.
-- Use plain language. Define technical terms the first time you use them.
-- Prefer structured answers: short summary, comparison table, recommendation, caveats, next steps.
-- Be honest about limitations, uncertainty, security/privacy risks, maintenance cost, and trade-offs. Do not present positives only.
-- Challenge unrealistic or marketing-style claims. If a claim like "71x token reduction" appears, explain what baseline, measurement method, and evidence would be needed before treating it as credible.
-
-Context:
-I am evaluating tools for Claude Code integration and related AI development workflows. I care most about:
-- token efficiency and context management,
-- security/privacy and data exposure,
-- compatibility with local development, Vercel, and AWS deployment,
-- ease of setup and long-term maintenance,
-- transparency over hype.
-
-Token and search discipline:
-- Ask clarifying questions first when they can avoid wasted context.
-- Search the web only for recent, critical, or unstable information: new tools, security advisories, repository status, pricing, version changes, or official docs.
-- Prefer official docs, source repos, changelogs, and security advisories over blogs or marketing pages.
-- Keep preambles short and get to the answer.
-- Respect any token or word budget I provide.
-
-Output rules:
-- For comparisons, use tables covering security, efficiency, compatibility, maturity, lock-in, cost, and recommended use.
-- Include a final recommendation with confidence level.
-- Flag "unknown", "needs verification", or "not enough context" instead of guessing.
-- Do not assume my intent, hide caveats, use unexplained jargon, search unnecessarily, or accept vendor claims at face value.`;
-
-export const playbookContent: PlaybookContent = {
-  title: "Janaagraha Claude Playbook",
+export const toolkitContent: PlaybookContent = {
+  title: "Janaagraha AI Startup Toolkit",
   subtitle:
-    "A practical internal guide for using Claude clearly, safely, and efficiently across policy, finance, research, and communications work.",
+    "Your starter kit for the AI Pilot — prompting basics, data safety rules, tool guides, and copy-ready templates for every team.",
   updated: "June 2026",
   nav: [
     { id: "essentials", label: "Essentials" },
     { id: "setup", label: "Setup" },
     { id: "safety", label: "Safety" },
-    { id: "tokens", label: "Tokens" },
-    { id: "commands-reference", label: "Commands Ref" },
+    { id: "dosdonts", label: "Dos & Don'ts" },
+    { id: "tools", label: "Tools Guide" },
     { id: "prompting", label: "Prompting" },
-    { id: "instructions", label: "Instructions" },
     { id: "team-prompts", label: "Team Prompts" },
-    { id: "sources", label: "Sources" },
   ],
   hero: {
-    badge: "Claude Team Playbook",
-    title: "Use Claude like a careful colleague, not a magic answer machine.",
+    badge: "Janaagraha AI Pilot 2026",
+    title: "Use AI like a careful colleague, not a magic answer machine.",
     summary:
-      "This app turns the original static guide into a searchable, copy-ready workspace for better prompts, safer data handling, and clearer team habits.",
+      "This app turns the AI Pilot workshops into a searchable, copy-ready workspace for better prompts, safer data handling, and clearer team habits across every tool in the pilot.",
     metrics: [
       {
-        label: "Reading mode",
-        value: "Guided",
-        detail: "Outline, search, tabs, and copyable examples reduce friction.",
+        label: "The one rule",
+        value: "First Draft",
+        detail:
+          "AI output is a FIRST DRAFT — never a final deliverable. Every use case needs a human review step before anything is shared or acted on.",
       },
       {
-        label: "Core rule",
-        value: "Verify",
-        detail: "AI output is a first draft until a human checks sources.",
+        label: "Tools in pilot",
+        value: "5+",
+        detail: "Claude Pro · Gemini Advanced · NotebookLM · Perplexity Pro · ChatGPT Plus · Canva Pro",
       },
     ],
   },
@@ -70,9 +37,9 @@ export const playbookContent: PlaybookContent = {
     {
       id: "essentials",
       eyebrow: "Start here",
-      title: "What Claude is good for, and where it needs guardrails",
+      title: "What AI tools are good for, and where they need guardrails",
       summary:
-        "Claude can accelerate thinking and drafting, but it does not remove source checking, professional judgement, or data responsibility.",
+        "AI can accelerate thinking and drafting, but it does not remove source checking, professional judgement, or data responsibility. AI output is a FIRST DRAFT — never a final deliverable.",
       kind: "principles",
       items: [
         {
@@ -83,7 +50,7 @@ export const playbookContent: PlaybookContent = {
         {
           title: "Make source boundaries explicit",
           detail:
-            "Tell Claude which uploaded document, official site, or pasted evidence it may use. Ask it to say when something is not found.",
+            "Tell your AI tool which uploaded document, official site, or pasted evidence it may use. Ask it to say when something is not found.",
         },
         {
           title: "Treat confidence as a signal, not proof",
@@ -100,20 +67,20 @@ export const playbookContent: PlaybookContent = {
     {
       id: "setup",
       eyebrow: "Account setup",
-      title: "Set up Claude for repeatable team work",
+      title: "Set up your AI tools for repeatable team work",
       summary:
-        "A good setup is not just login access. It includes a useful profile, clear project instructions, and predictable source habits.",
+        "A good setup is not just login access. It includes a useful profile, clear project instructions, and predictable source habits — for whichever pilot tool you're using.",
       kind: "principles",
       items: [
         {
           title: "Use the team account identity",
           detail:
-            "Sign in with the Janaagraha email account assigned to the Claude Team workspace. Keep personal and organisation work separate.",
+            "Sign in with the Janaagraha email account assigned to your AI tool's workspace. Keep personal and organisation work separate.",
         },
         {
           title: "Create projects for ongoing work",
           detail:
-            "Use projects for recurring streams such as ASICS research, PFM reports, donor communications, or city-specific policy notes.",
+            "Use projects, notebooks, or Gems for recurring streams such as ASICS research, PFM reports, donor communications, or city-specific policy notes.",
         },
         {
           title: "Add project instructions",
@@ -121,9 +88,9 @@ export const playbookContent: PlaybookContent = {
             "Include source rules, tone, audience, preferred output formats, and escalation points so every chat starts with the same baseline.",
         },
         {
-          title: "Use Claude Code memory deliberately",
+          title: "Build a shared team prompt library",
           detail:
-            "For code work, keep stable repository instructions in CLAUDE.md and use settings for tool permissions and local workflow preferences.",
+            "Save prompts that work into a shared library so an intern and a senior manager using the same template get the same output quality.",
         },
       ],
     },
@@ -160,217 +127,354 @@ export const playbookContent: PlaybookContent = {
       },
     },
     {
-      id: "tokens",
-      eyebrow: "Efficiency",
-      title: "Manage tokens by managing context",
+      id: "dosdonts",
+      eyebrow: "Quick rules",
+      title: "What to do, what not to do, and what to watch for",
       summary:
-        "Usage is shaped by input length, output length, attachments, tools, model choice, and how long a conversation has become.",
-      kind: "table",
-      table: {
-        title: "Efficiency habits that keep quality high",
-        columns: ["Habit", "Why it helps", "Example"],
-        rows: [
-          [
-            "Start narrow",
-            "A precise first request gives better output and avoids long corrections.",
-            "Extract only devolution formula fields instead of summarising a whole SFC report.",
-          ],
-          [
-            "Split unrelated tasks",
-            "Old conversation context keeps consuming attention and can confuse the answer.",
-            "Start a new chat for comms copy after completing legal extraction.",
-          ],
-          [
-            "Ask for source tables",
-            "Tables make gaps visible and reduce repeated follow-up questions.",
-            "State | Provision | Source page | Confidence | Needs human check.",
-          ],
-          [
-            "Be skeptical of big savings claims",
-            "Token-reduction claims depend on baseline, measurement method, task type, and output quality.",
-            "Ask what was measured before accepting a claim such as 71x reduction.",
-          ],
-        ],
-      },
-    },
-    {
-      id: "commands-reference",
-      eyebrow: "Quick reference",
-      title: "Claude command cheat sheet",
-      summary:
-        "90 commands across 11 categories. Start with Level 1 and build from there.",
-      kind: "cheatsheet",
+        "Drawn from the PFM workshop and ASICS AI workshop. These apply regardless of which tool you are using.",
+      kind: "dosdonts",
       groups: [
         {
-          id: "level1-core",
-          label: "Start & Context",
-          emoji: "🟢",
-          level: "Level 1 — Learn the Core Commands",
-          commands: [
-            { command: "/new", description: "Start a fresh conversation" },
-            { command: "/project", description: "Create or open a project" },
-            { command: "/context", description: "Add background so answers are sharper" },
-            { command: "/examples", description: "Give Claude examples to anchor its output" },
-            { command: "/clarify", description: "Let Claude ask the right questions before answering" },
-            { command: "/upload", description: "Attach files for Claude to read" },
-            { command: "/paste", description: "Paste content from clipboard" },
-            { command: "/focus", description: "Tell Claude exactly what you want" },
+          id: "prompting",
+          label: "📝 Prompting",
+          items: [
+            {
+              type: "do",
+              text: "Use the 6-part formula",
+              detail:
+                "Role → Task → Context → Fallback → Guardrail → Format. Every prompt in the workshops uses this structure. Plain English works but Markdown (#, ##, **) is more reliable.",
+            },
+            {
+              type: "do",
+              text: "Start narrow, not broad",
+              detail:
+                "A precise first request gives better output and avoids long corrections. Extract one section before summarising a whole report.",
+            },
+            {
+              type: "do",
+              text: "Tell the AI who it is",
+              detail:
+                "Open with a Role: 'You are a PFM analyst at Janaagraha...' This sets the register for the whole response.",
+            },
+            {
+              type: "do",
+              text: "Specify your source rule",
+              detail:
+                "Tell the AI which document, official site, or pasted text it may use. Ask it to say 'Not found in source' instead of guessing.",
+            },
+            {
+              type: "dont",
+              text: "Don't ask one giant question",
+              detail:
+                "Split multi-part tasks across separate prompts or chats. Unrelated context accumulates and degrades output quality.",
+            },
+            {
+              type: "dont",
+              text: "Don't treat confidence as proof",
+              detail:
+                "A fluent, well-structured answer can still be outdated or wrong. A confident tone is not evidence.",
+            },
+            {
+              type: "dont",
+              text: "Don't accept vague output",
+              detail:
+                "If the answer is generic, your prompt was probably generic. Add more Role, Context, or Guardrail.",
+            },
+            {
+              type: "tip",
+              text: "Use Markdown headers as priority signals",
+              detail:
+                "# is a headline — the AI pays more attention to it. Think of # as bold + priority in one. Plain English works but Markdown is more consistent.",
+            },
+            {
+              type: "tip",
+              text: "Ask for a table with a 'Needs human check' column",
+              detail:
+                "Tables make gaps visible and force the AI to flag uncertainty explicitly rather than hiding it in fluent prose.",
+            },
           ],
         },
         {
-          id: "level2-write",
-          label: "Write & Edit",
-          emoji: "🟡",
-          level: "Level 2 — Write Better Outputs",
-          commands: [
-            { command: "/write", description: "Generate content from scratch" },
-            { command: "/rewrite", description: "Same message, better delivery" },
-            { command: "/improve", description: "Improve existing writing" },
-            { command: "/summarize", description: "Condense long content" },
-            { command: "/expand", description: "Add more detail to a draft" },
-            { command: "/edit", description: "Clean up what you already have" },
-            { command: "/shorten", description: "Cut the fluff, keep the punch" },
-            { command: "/paraphrase", description: "Restate in different words" },
-            { command: "/proofread", description: "Check grammar and clarity" },
+          id: "safety",
+          label: "🔒 Data Safety",
+          items: [
+            {
+              type: "do",
+              text: "Apply the traffic-light rule before pasting anything",
+              detail:
+                "Green = public reports, government docs. Amber = internal notes (clean before pasting: remove names, IDs, confidential figures). Red = PII, HR data, donor financials, unpublished legal advice — never paste.",
+            },
+            {
+              type: "do",
+              text: "Share only the minimum necessary context",
+              detail:
+                "The safest prompt is one that gives just enough for the task. A specific excerpt is better than an entire file.",
+            },
+            {
+              type: "dont",
+              text: "Don't paste PII, beneficiary records, or HR data",
+              detail:
+                "These are Red-level data. Use internal approved systems or ask the workspace admin.",
+            },
+            {
+              type: "dont",
+              text: "Don't paste unpublished donor financials or privileged legal advice",
+              detail:
+                "Even anonymised summaries of these can be sensitive. When in doubt, ask internally first.",
+            },
+            {
+              type: "tip",
+              text: "When in doubt, anonymise, aggregate, or ask internally first",
+              detail: "You can describe a pattern without pasting the raw data that shows it.",
+            },
           ],
         },
         {
-          id: "level3-code",
-          label: "Code & Tech",
-          emoji: "🔵",
-          level: "Level 3 — Code Faster",
-          commands: [
-            { command: "/code", description: "Write code in any language" },
-            { command: "/debug", description: "Find and fix what is broken" },
-            { command: "/explain", description: "Explain what code does and why" },
-            { command: "/optimize", description: "Make it faster and cleaner" },
-            { command: "/refactor", description: "Restructure without changing behaviour" },
-            { command: "/test", description: "Write tests for your code" },
-            { command: "/convert", description: "Convert between formats or languages" },
-            { command: "/documentation", description: "Write inline or external docs" },
-            { command: "/review", description: "Review code for issues" },
+          id: "verification",
+          label: "✅ Verification",
+          items: [
+            {
+              type: "do",
+              text: "Human review before anything goes external",
+              detail:
+                "AI output is a FIRST DRAFT — never a final deliverable. Every use case needs a named human to check before the output is shared, published, or acted on.",
+            },
+            {
+              type: "do",
+              text: "Check legal provisions, statistics, dates, and named attributions",
+              detail:
+                "These are the four categories most likely to be wrong. Verify each one against the primary source.",
+            },
+            {
+              type: "do",
+              text: "Cite source and page for every factual claim",
+              detail:
+                "Ask the AI to give document name + section + page for every claim. If it cannot, the claim needs verification.",
+            },
+            {
+              type: "dont",
+              text: "Don't publish statistics the AI generated without a source",
+              detail:
+                "AI can invent plausible-sounding numbers. Every statistic that goes external needs a primary source citation.",
+            },
+            {
+              type: "dont",
+              text: "Don't assume amendments are captured",
+              detail:
+                "AI defaults to the original text of a law. Always test with a known amendment before trusting any legal provision.",
+            },
+            {
+              type: "tip",
+              text: "Use the 3-tier source rule for research",
+              detail:
+                "Tier 1: uploaded verified documents (always cite). Tier 2: official .gov.in portals only if Tier 1 has no answer (cite URL + date). Tier 3: if absent from both, say so — never guess.",
+            },
           ],
         },
         {
-          id: "level4-think",
-          label: "Analyse & Plan",
-          emoji: "🟣",
-          level: "Level 4 — Think Like an Engineer",
-          commands: [
-            { command: "/analyze", description: "Break any problem into parts" },
-            { command: "/compare", description: "Put two options head to head" },
-            { command: "/evaluate", description: "Assess ideas against criteria" },
-            { command: "/brainstorm", description: "Generate ideas fast, no filter" },
-            { command: "/workflow", description: "Design a repeatable process" },
-            { command: "/pros-cons", description: "List trade-offs clearly" },
-            { command: "/recommend", description: "Get a structured recommendation" },
-            { command: "/challenge", description: "Push back on your own assumptions" },
+          id: "team-habits",
+          label: "🤝 Team Habits",
+          items: [
+            {
+              type: "do",
+              text: "Build a shared prompt library",
+              detail:
+                "When a prompt works well, save it to the team library. An intern and a senior manager using the same template get the same output quality.",
+            },
+            {
+              type: "do",
+              text: "Encode the Janaagraha voice in a system prompt",
+              detail:
+                "One shared system prompt across the team keeps tone, terminology (ULB not 'municipality', OSR not 'self-generated revenue'), and citation rules consistent.",
+            },
+            {
+              type: "dont",
+              text: "Don't let everyone prompt differently",
+              detail:
+                "Inconsistent prompting produces inconsistent output and duplicated effort across the team.",
+            },
+            {
+              type: "dont",
+              text: "Don't auto-add to the shared library",
+              detail:
+                "All new templates require senior review before entering the shared library. The team's voice prompt is reviewed quarterly.",
+            },
+            {
+              type: "tip",
+              text: "Start a new chat for unrelated tasks",
+              detail:
+                "Old conversation context keeps consuming attention and can confuse the answer. Split by topic, not convenience.",
+            },
           ],
         },
         {
-          id: "organise",
-          label: "Organise & Structure",
-          emoji: "📋",
-          commands: [
-            { command: "/outline", description: "Build a skeleton before you write" },
-            { command: "/structure", description: "Organise existing content" },
-            { command: "/bullet", description: "Turn walls of text into scannable points" },
-            { command: "/table", description: "Organise comparisons visually" },
-            { command: "/mindmap", description: "Map out connected ideas" },
-            { command: "/flowchart", description: "Create a process flow diagram" },
-            { command: "/key-points", description: "Extract the most important points" },
-          ],
-        },
-        {
-          id: "data-analysis",
-          label: "Data & Analysis",
-          emoji: "📊",
-          commands: [
-            { command: "/analyze-data", description: "Find patterns in raw data" },
-            { command: "/visualize", description: "Turn numbers into charts" },
-            { command: "/insights", description: "Pull the 'so what' from data" },
-            { command: "/forecast", description: "Make data-grounded predictions" },
-            { command: "/report", description: "Generate a structured report" },
-            { command: "/stats", description: "Calculate key statistics" },
-            { command: "/clean", description: "Clean and normalise messy data" },
-          ],
-        },
-        {
-          id: "automate",
-          label: "Automate & Integrate",
-          emoji: "⚙️",
-          commands: [
-            { command: "/automate", description: "Remove manual steps from a workflow" },
-            { command: "/api", description: "Connect Claude to other tools" },
-            { command: "/integrate", description: "Design system integrations" },
-            { command: "/schedule", description: "Plan scheduled tasks" },
-            { command: "/trigger", description: "Set conditions for automated actions" },
-            { command: "/tasklist", description: "Create an actionable task list" },
-            { command: "/checklist", description: "Create a step-by-step checklist" },
-          ],
-        },
-        {
-          id: "personalise",
-          label: "Personalise & Control",
-          emoji: "🎛️",
-          commands: [
-            { command: "/tone", description: "Set formal, casual, or bold delivery" },
-            { command: "/style", description: "Match a writing voice or persona" },
-            { command: "/length", description: "Control response length explicitly" },
-            { command: "/format", description: "Change output format" },
-            { command: "/memory", description: "Tell Claude what to always remember" },
-            { command: "/reset", description: "Reset conversation context" },
-            { command: "/assumptions", description: "List and confirm assumptions first" },
-            { command: "/constraints", description: "Set hard limits on scope or content" },
-          ],
-        },
-        {
-          id: "research",
-          label: "Research & Learn",
-          emoji: "🔬",
-          commands: [
-            { command: "/search", description: "Pull current information from the web" },
-            { command: "/research", description: "Go deep on any topic" },
-            { command: "/learn", description: "Explain a concept from first principles" },
-            { command: "/tldr", description: "Get the key points fast" },
-            { command: "/sources", description: "Find and list sources" },
-            { command: "/fact-check", description: "Verify a claim before you trust it" },
-            { command: "/explore", description: "Surface related topics and angles" },
-          ],
-        },
-        {
-          id: "collaborate",
-          label: "Collaborate & Share",
-          emoji: "🤝",
-          commands: [
-            { command: "/share", description: "Share the conversation" },
-            { command: "/export", description: "Save output in your preferred format" },
-            { command: "/copy", description: "Copy content to clipboard" },
-            { command: "/email", description: "Draft and prepare to send" },
-            { command: "/feedback", description: "Send feedback on a response" },
-          ],
-        },
-        {
-          id: "power-shortcuts",
-          label: "Power Shortcuts",
-          emoji: "⚡",
-          commands: [
-            { command: "/ + command", description: "Quick access to any command" },
-            { command: "Combine commands", description: "Chain /analyze then /table for better results" },
-            { command: "Add context early", description: "Give background before the task, not after" },
-            { command: "Be specific", description: "Name the output type, audience, and length upfront" },
-            { command: "Iterate and refine", description: "Treat first output as a draft, not a final answer" },
-            { command: "Save and reuse", description: "Copy prompts that work into project instructions" },
+          id: "source-quality",
+          label: "📚 Source Quality",
+          items: [
+            {
+              type: "do",
+              text: "Use official .gov.in and .nic.in portals as internet fallback",
+              detail:
+                "India Code (indiacode.nic.in), state legislature portals, MoHUA, official ULB websites, Rajya/Lok Sabha bills.",
+            },
+            {
+              type: "dont",
+              text: "Don't accept Wikipedia, legal blogs, or news articles as sources for legal or policy claims",
+              detail:
+                "Any site without a .gov.in or official institutional domain is not acceptable for legal/policy facts.",
+            },
+            {
+              type: "dont",
+              text: "Don't accept AI's own general knowledge as a source",
+              detail:
+                "If the AI cannot cite a document + page or a .gov.in URL, it is generating from training data — not from a verifiable source.",
+            },
+            {
+              type: "tip",
+              text: "Test for amendment comprehensiveness before trusting output",
+              detail:
+                "Run a known amended act through the tool and check if the amendment surfaces. If it defaults to the original, flag it.",
+            },
           ],
         },
       ],
     },
     {
-      id: "prompting",
-      eyebrow: "Prompt craft",
-      title: "Use one prompt formula across the organisation",
+      id: "tools",
+      eyebrow: "What to use when",
+      title: "Your AI Pilot toolkit — 5 tools, different jobs",
       summary:
-        "Consistent prompt structure makes outputs easier to review, teach, and reuse across teams.",
+        "No single tool is best for every task. Match the tool to the work. When in doubt, start with what you have access to and document what you learn.",
+      kind: "tools",
+      tools: [
+        {
+          id: "claude",
+          name: "Claude Pro",
+          emoji: "🤖",
+          tier: "Pro",
+          tagline: "Long documents, careful reasoning, policy drafting",
+          bestFor: [
+            "Uploading 150–200 page reports and querying specific provisions with page citations",
+            "Drafting policy briefs, donor reports, and internal notes with a structured prompt",
+            "Rewriting one verified document for 3 different audiences (councillors, policymakers, donors)",
+            "Building a shared prompt library with consistent output structure across the team",
+          ],
+          notFor: [
+            "Real-time web search or current news — it has a knowledge cutoff",
+            "Heavy visual design or infographic creation",
+          ],
+          setupTip:
+            "Use Projects for ongoing work streams (e.g. ASICS research, PFM). Add Project Instructions with source rules, tone, and output format so every chat starts from the same baseline.",
+          pilotAccess: true,
+        },
+        {
+          id: "notebooklm",
+          name: "Google NotebookLM",
+          emoji: "📓",
+          tier: "Free",
+          tagline: "Closed document retrieval — your uploaded docs only, no hallucination",
+          bestFor: [
+            "Creating a verified, closed knowledge base from SFC reports, municipal acts, NMAM guidelines",
+            "Querying across multiple uploaded documents with verbatim citations (document + page)",
+            "Building the Tier 1 source layer before using Gemini or Claude as a reasoning layer",
+            "Research where hallucination is unacceptable — answers come only from what you uploaded",
+          ],
+          notFor: [
+            "Tasks that need general reasoning, drafting, or rewriting — it is a retrieval tool, not a generalist",
+            "Quick conversational queries — set up the notebook first, then query",
+          ],
+          setupTip:
+            "Name files with a strict convention: [State]_[ActOrReport]_[Year].pdf (e.g. Karnataka_Municipal_Act_2001.pdf). This makes citations clean and unambiguous.",
+          pilotAccess: true,
+        },
+        {
+          id: "gemini",
+          name: "Gemini Advanced",
+          emoji: "✨",
+          tier: "Advanced",
+          tagline: "Configured AI agent — pre-set with your context, guardrails, and fallback instructions",
+          bestFor: [
+            "Setting up a Gemini Gem with a system prompt baked in: role, guardrails, fallback, and team context pre-configured for every session",
+            "Pairing with NotebookLM: Gemini searches NotebookLM first, then falls back to official .gov.in portals",
+            "Multi-language document work — Hindi, regional scripts, non-English government portals with auto-translation",
+            "Codifying the Janaagraha analytical voice as a system prompt shared across the team",
+          ],
+          notFor: [
+            "Ad-hoc queries without a configured Gem — configure the Gem first for consistent output",
+            "Tasks requiring strict version control of prompts — manage this outside the tool",
+          ],
+          setupTip:
+            "A Gemini Gem has a system prompt baked in. Configure once: paste your Role + Guardrail + Fallback + team context. Every team member then uses the identical starting state — an intern and a manager get the same quality output.",
+          pilotAccess: true,
+        },
+        {
+          id: "perplexity",
+          name: "Perplexity Pro",
+          emoji: "🔍",
+          tier: "Pro",
+          tagline: "Real-time web search with citations — for current information only",
+          bestFor: [
+            "Finding recent amendments, notifications, and circulars that postdate your uploaded documents",
+            "Verifying whether a government scheme or policy is still active with a current .gov.in source",
+            "Quick comparative research across multiple government portals when documents are not available to upload",
+            "Checking facts before including them in a document — it cites sources directly",
+          ],
+          notFor: [
+            "Closed-document retrieval from your own files — use NotebookLM for that",
+            "Long-form drafting or audience adaptation — use Claude or Gemini for that",
+          ],
+          setupTip:
+            "Always check the cited URL before using a Perplexity result. Prefer results from .gov.in, .nic.in, or official institutional domains. Treat results from news sites or blogs as leads to verify, not as sources.",
+          pilotAccess: true,
+        },
+        {
+          id: "chatgpt",
+          name: "ChatGPT Plus",
+          emoji: "💬",
+          tier: "Plus",
+          tagline: "General-purpose assistant — strong on structured output and coding",
+          bestFor: [
+            "Structured data extraction and table generation from pasted text",
+            "Writing and reformatting tasks where output format matters (tables, lists, structured notes)",
+            "Coding and formula tasks — data cleaning, Excel/Sheets formulas, simple scripts",
+            "Quick document summaries and meeting notes",
+          ],
+          notFor: [
+            "Legal or policy research requiring verified source citations — hallucination risk is higher without a document upload",
+            "Tasks that need strict source grounding — always add a source rule to your prompt",
+          ],
+          setupTip:
+            "Add a guardrail to every research prompt: 'If a claim does not appear in the pasted text, write Not found in source — do not invent.' This is the single biggest reducer of hallucinated output.",
+          pilotAccess: true,
+        },
+        {
+          id: "canva",
+          name: "Canva Pro",
+          emoji: "🎨",
+          tier: "Pro",
+          tagline: "Visual communication — turn verified text into shareable visuals",
+          bestFor: [
+            "Turning a verified policy brief or data table into a shareable infographic or social post",
+            "Creating ward-level or city-level communication materials without a design team",
+            "Producing donor-facing or public-facing one-pagers from drafted content",
+            "Generating presentation decks from structured notes",
+          ],
+          notFor: [
+            "Research, analysis, or drafting — do those in Claude Pro, Gemini Advanced, or ChatGPT Plus first, then bring verified content here",
+            "Any visual that needs a precise source citation — Canva AI generates images and text; always verify before publishing",
+          ],
+          setupTip:
+            "Always draft and verify the text content in another tool first. Canva is the final step — a design layer over already-verified content, not a research tool.",
+          pilotAccess: true,
+        },
+      ],
+    },
+    {
+      id: "prompting",
+      eyebrow: "Prompt formula",
+      title: "The 6-part formula used in every Janaagraha workshop prompt",
+      summary:
+        "This structure works across all AI tools in the pilot — Claude Pro, Gemini Advanced, ChatGPT Plus, and Perplexity Pro.",
       kind: "prompts",
       prompts: [
         {
@@ -428,21 +532,6 @@ Table: Claim | Risk level | Evidence needed | Suggested safer wording.
 [Paste draft here]`,
         },
       ],
-    },
-    {
-      id: "instructions",
-      eyebrow: "Copy-ready",
-      title: "Profile and project instructions for tool evaluation",
-      summary:
-        "Use this compact instruction set in profile instructions or project instructions when evaluating Claude Code integrations and AI development tools.",
-      kind: "instruction",
-      instruction: {
-        title: "Tool evaluation instruction prompt",
-        description:
-          "Designed for Claude profile instructions and project instructions. It keeps answers transparent, source-aware, and token-conscious.",
-        characterLimit: 4000,
-        prompt: instructionPrompt,
-      },
     },
   ],
   teamPromptGroups: [
@@ -3609,28 +3698,4 @@ Role summary (2-3 sentences) → Key responsibilities (bullets) → Requirements
       ],
     },
   ],
-  sources: [
-    {
-      label: "Claude model overview",
-      href: "https://platform.claude.com/docs/en/about-claude/models/overview",
-    },
-    {
-      label: "Claude usage limit best practices",
-      href: "https://support.claude.com/en/articles/9797557-usage-limit-best-practices",
-    },
-    {
-      label: "Claude projects",
-      href: "https://support.claude.com/en/articles/9517075-what-are-projects",
-    },
-    {
-      label: "Claude Code settings",
-      href: "https://code.claude.com/docs/en/settings",
-    },
-    {
-      label: "Claude for Work data ownership",
-      href: "https://support.claude.com/en/articles/9265372-who-owns-and-manages-the-data-of-my-team",
-    },
-  ],
 };
-
-export const instructionPromptCharacters = instructionPrompt.length;

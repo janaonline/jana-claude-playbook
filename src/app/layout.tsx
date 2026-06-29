@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Janaagraha Claude Playbook",
+  title: "Janaagraha AI Startup Toolkit",
   description:
-    "An internal Janaagraha playbook for responsible, efficient Claude usage.",
+    "The Janaagraha AI Pilot starter kit — prompting basics, data safety rules, tool guides, and copy-ready templates for every team.",
 };
 
 export default function RootLayout({
