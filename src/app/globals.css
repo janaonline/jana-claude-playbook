@@ -969,6 +969,28 @@ td {
   color: var(--success);
 }
 
+.tool-card__footer {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.tool-open-link {
+  align-items: center;
+  color: var(--accent-4);
+  display: inline-flex;
+  font-size: 0.8rem;
+  font-weight: 700;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.tool-open-link:hover {
+  text-decoration: underline;
+}
+
 .dosdonts-list {
   display: grid;
   gap: 10px;

@@ -9,6 +9,7 @@ import {
   ChevronRight,
   Copy,
   Database,
+  ExternalLink,
   FileText,
   Lightbulb,
   ListChecks,
@@ -360,9 +361,14 @@ function ToolsGuide({ tools }: { tools: ToolCard[] }) {
               {tool.setupTip}
             </span>
           </div>
-          <span className={tool.pilotAccess ? "pilot-badge pilot-badge--available" : "pilot-badge"}>
-            {tool.pilotAccess ? "Pilot access available" : "Request access"}
-          </span>
+          <div className="tool-card__footer">
+            <span className={tool.pilotAccess ? "pilot-badge pilot-badge--available" : "pilot-badge"}>
+              {tool.pilotAccess ? "Pilot access available" : "Request access"}
+            </span>
+            <a className="tool-open-link" href={tool.url} target="_blank" rel="noreferrer">
+              Open {tool.name} <ExternalLink size={13} />
+            </a>
+          </div>
         </article>
       ))}
     </div>

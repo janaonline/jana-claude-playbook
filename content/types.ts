@@ -58,6 +58,7 @@ export type ToolCard = {
   emoji: string;
   tier: "Pro" | "Advanced" | "Plus" | "Free";
   tagline: string;
+  url: string;
   bestFor: string[];
   notFor: string[];
   setupTip: string;
