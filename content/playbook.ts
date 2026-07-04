@@ -719,6 +719,32 @@ Background (2 sentences) → What changes (bullets) → Anticipated impact (tabl
 
 [Paste amendment draft here]`,
         },
+        {
+          id: "liveability-index-scoring",
+          title: "City liveability index — scoring draft",
+          audience: "Spatial Planning and Zoning Team",
+          scenario:
+            "Building a first-draft liveability score for a set of wards or zones ahead of an internal review, inspired by city liveability index frameworks used elsewhere in India.",
+          tags: ["Liveability Index", "Scoring", "Ranking"],
+          review:
+            "Planner verifies every indicator weight and score against the source dataset, and confirms the methodology note before any ranking is shared outside the team.",
+          prompt: `# Role
+You are a city liveability analyst at Janaagraha building a first-draft scoring model.
+
+# Guardrail
+Use only the pasted indicator dataset. Do not invent scores, weights, or indicators not present in the data. If an indicator is missing for a zone, mark it "Data gap" rather than estimating.
+
+# Task
+Score [Number] wards/zones on the listed liveability indicators for [City / Area] and produce a weighted composite score.
+
+# Context
+Indicators and weights: [paste indicator list and weights]
+
+# Format
+Table: Zone | Indicator scores (one column per indicator) | Weighted composite score | Rank | Data gaps flagged
+
+[Paste indicator dataset here]`,
+        },
       ],
     },
     {
@@ -972,6 +998,30 @@ Use only the pasted tool documentation. Do not describe steps or features not pr
 What the tool does (2 sentences) → Getting started (numbered steps) → Common tasks (bullets) → Who to contact for support.
 
 [Paste tool documentation here]`,
+        },
+        {
+          id: "geospatial-comparative-ranking",
+          title: "Geospatial comparative ranking (multi-city/ward)",
+          audience: "City Data and Analytics Platform (CDAP) Team",
+          scenario:
+            "Comparing multiple cities or wards on a spatial metric directly from a pasted GIS data summary, similar in spirit to public city-ranking indices.",
+          tags: ["Geospatial", "Ranking", "Comparative analysis"],
+          review:
+            "Analyst validates every ranking against the raw GIS layer or source dataset before the comparison is published or shared externally.",
+          prompt: `# Role
+You are a geospatial analyst at Janaagraha comparing cities or wards on a spatial metric.
+
+# Guardrail
+Use only the pasted spatial data summary. If a field is missing or inconsistent for an area, flag it rather than estimating a value.
+
+# Task
+Rank [Number] cities/wards on [Metric Name] using the provided fields, from [highest/lowest] to [lowest/highest].
+
+# Format
+1. Ranked table: Rank | City/Ward | [Metric] value | Data gaps flagged
+2. One-paragraph methodology note describing how the ranking was derived and any limitations in the source data
+
+[Paste spatial data summary here]`,
         },
       ],
     },
