@@ -6,6 +6,7 @@ import {
   BookOpen,
   Check,
   CheckCircle2,
+  ChevronLeft,
   ChevronRight,
   Copy,
   Database,
@@ -23,7 +24,7 @@ import {
   X,
   XCircle,
 } from "lucide-react";
-import { useEffect, useLayoutEffect, useMemo, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import type {
   CheatsheetGroup,
   ComparisonTable,
@@ -433,6 +434,7 @@ function TeamPrompts({
   setActiveTeam: (id: string) => void;
 }) {
   const [teamSearch, setTeamSearch] = useState("");
+  const teamTabsRef = useRef<HTMLDivElement>(null);
 
   const matchingGroups = useMemo(() => {
     let result = groups;
@@ -486,19 +488,37 @@ function TeamPrompts({
           </button>
         ) : null}
       </div>
-      <div className="team-tabs" role="tablist" aria-label="Team prompt groups">
-        {matchingGroups.map((group) => (
-          <button
-            aria-selected={group.id === activeTeam}
-            className={group.id === activeTeam ? "tab active" : "tab"}
-            key={group.id}
-            onClick={() => setActiveTeam(group.id)}
-            role="tab"
-            type="button"
-          >
-            {group.label}
-          </button>
-        ))}
+      <div className="team-tabs-scroller">
+        <button
+          type="button"
+          className="team-tabs-scroll-btn team-tabs-scroll-btn--left"
+          aria-label="Scroll teams left"
+          onClick={() => teamTabsRef.current?.scrollBy({ left: -320, behavior: "smooth" })}
+        >
+          <ChevronLeft size={16} />
+        </button>
+        <div className="team-tabs" role="tablist" aria-label="Team prompt groups" ref={teamTabsRef}>
+          {matchingGroups.map((group) => (
+            <button
+              aria-selected={group.id === activeTeam}
+              className={group.id === activeTeam ? "tab active" : "tab"}
+              key={group.id}
+              onClick={() => setActiveTeam(group.id)}
+              role="tab"
+              type="button"
+            >
+              {group.label}
+            </button>
+          ))}
+        </div>
+        <button
+          type="button"
+          className="team-tabs-scroll-btn team-tabs-scroll-btn--right"
+          aria-label="Scroll teams right"
+          onClick={() => teamTabsRef.current?.scrollBy({ left: 320, behavior: "smooth" })}
+        >
+          <ChevronRight size={16} />
+        </button>
       </div>
       {activeGroup ? (
         <div className="team-panel">
