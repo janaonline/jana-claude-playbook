@@ -668,6 +668,60 @@ td {
   scrollbar-width: thin;
 }
 
+.team-tabs-scroller {
+  position: relative;
+}
+
+.team-tabs-scroller::before,
+.team-tabs-scroller::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 6px;
+  width: 32px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.team-tabs-scroller::before {
+  left: 0;
+  background: linear-gradient(to right, var(--background), transparent);
+}
+
+.team-tabs-scroller::after {
+  right: 0;
+  background: linear-gradient(to left, var(--background), transparent);
+}
+
+.team-tabs-scroll-btn {
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--muted);
+  cursor: pointer;
+  display: flex;
+  height: 28px;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  z-index: 2;
+}
+
+.team-tabs-scroll-btn:hover {
+  color: var(--foreground);
+}
+
+.team-tabs-scroll-btn--left {
+  left: -6px;
+}
+
+.team-tabs-scroll-btn--right {
+  right: -6px;
+}
+
 .team-panel {
   display: grid;
   gap: 16px;
