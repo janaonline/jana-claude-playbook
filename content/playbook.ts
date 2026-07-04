@@ -353,6 +353,7 @@ export const toolkitContent: PlaybookContent = {
           emoji: "🤖",
           tier: "Pro",
           tagline: "Long documents, careful reasoning, policy drafting",
+          url: "https://claude.ai",
           bestFor: [
             "Uploading 150–200 page reports and querying specific provisions with page citations",
             "Drafting policy briefs, donor reports, and internal notes with a structured prompt",
@@ -373,6 +374,7 @@ export const toolkitContent: PlaybookContent = {
           emoji: "📓",
           tier: "Free",
           tagline: "Closed document retrieval — your uploaded docs only, no hallucination",
+          url: "https://notebooklm.google.com",
           bestFor: [
             "Creating a verified, closed knowledge base from SFC reports, municipal acts, NMAM guidelines",
             "Querying across multiple uploaded documents with verbatim citations (document + page)",
@@ -393,6 +395,7 @@ export const toolkitContent: PlaybookContent = {
           emoji: "✨",
           tier: "Advanced",
           tagline: "Configured AI agent — pre-set with your context, guardrails, and fallback instructions",
+          url: "https://gemini.google.com",
           bestFor: [
             "Setting up a Gemini Gem with a system prompt baked in: role, guardrails, fallback, and team context pre-configured for every session",
             "Pairing with NotebookLM: Gemini searches NotebookLM first, then falls back to official .gov.in portals",
@@ -413,6 +416,7 @@ export const toolkitContent: PlaybookContent = {
           emoji: "🔍",
           tier: "Pro",
           tagline: "Real-time web search with citations — for current information only",
+          url: "https://www.perplexity.ai",
           bestFor: [
             "Finding recent amendments, notifications, and circulars that postdate your uploaded documents",
             "Verifying whether a government scheme or policy is still active with a current .gov.in source",
@@ -433,6 +437,7 @@ export const toolkitContent: PlaybookContent = {
           emoji: "💬",
           tier: "Plus",
           tagline: "General-purpose assistant — strong on structured output and coding",
+          url: "https://chatgpt.com",
           bestFor: [
             "Structured data extraction and table generation from pasted text",
             "Writing and reformatting tasks where output format matters (tables, lists, structured notes)",
@@ -453,6 +458,7 @@ export const toolkitContent: PlaybookContent = {
           emoji: "🎨",
           tier: "Pro",
           tagline: "Visual communication — turn verified text into shareable visuals",
+          url: "https://www.canva.com",
           bestFor: [
             "Turning a verified policy brief or data table into a shareable infographic or social post",
             "Creating ward-level or city-level communication materials without a design team",
