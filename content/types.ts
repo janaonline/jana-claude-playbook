@@ -65,6 +65,13 @@ export type ToolCard = {
   pilotAccess: boolean;
 };
 
+export type ResourceLink = {
+  title: string;
+  url: string;
+  source: string;
+  description: string;
+};
+
 export type DosDontsItem = {
   type: "do" | "dont" | "tip";
   text: string;
@@ -85,6 +92,15 @@ export type PlaybookSection =
       summary: string;
       kind: "principles";
       items: Principle[];
+    }
+  | {
+      id: string;
+      eyebrow: string;
+      title: string;
+      summary: string;
+      kind: "primer";
+      points: Principle[];
+      resources: ResourceLink[];
     }
   | {
       id: string;

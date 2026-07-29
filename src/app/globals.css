@@ -1045,6 +1045,55 @@ td {
   text-decoration: underline;
 }
 
+.primer {
+  display: grid;
+  gap: 28px;
+}
+
+.resource-list {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+.resource-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px 18px;
+}
+
+.resource-item__head {
+  align-items: baseline;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  justify-content: space-between;
+}
+
+.resource-item__head h3 {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.resource-source {
+  background: #22c55e20;
+  border: 1px solid color-mix(in srgb, #22c55e, transparent 40%);
+  border-radius: 999px;
+  color: var(--success);
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 3px 10px;
+  white-space: nowrap;
+}
+
+.resource-item .tool-open-link {
+  margin-top: auto;
+}
+
 .dosdonts-list {
   display: grid;
   gap: 10px;
