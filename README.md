@@ -1,6 +1,6 @@
 # Janaagraha AI Startup Toolkit
 
-An internal, single-page Next.js app for Janaagraha staff: a searchable, copy-ready starter kit for the AI Pilot. It covers data-sharing guardrails, a reusable 6-part prompt formula, a Dos & Don'ts reference (prompting, data safety, verification, team habits, source quality), a guide to the six pilot tools (Claude Pro, Gemini Advanced, NotebookLM, Perplexity Pro, ChatGPT Plus, Canva Pro — what each is good for, what to avoid, a setup tip, and a link to open the tool), and team-specific prompt libraries for 26 teams — All Staff plus 25 program/project/functional teams across 6 verticals (Urban Planning and Spatial Design, Civic Participation and Grassroots Engagement, Public Finance Management, Regional State Program Deployments, Sectoral Policies and National Advocacy, and Horizontal Support and Institutional Strategy) — with fuzzy search and a dedicated sidebar/mobile submenu for jumping straight to a team.
+An internal, single-page Next.js app for Janaagraha staff: a searchable, copy-ready starter kit for the AI Pilot. It opens with a plain-language **AI Primer** for staff new to AI — concept cards plus curated external learning resources — and covers data-sharing guardrails, a reusable 6-part prompt formula, a Dos & Don'ts reference (prompting, data safety, verification, team habits, source quality), a guide to the six pilot tools (Claude Pro, Gemini Advanced, NotebookLM, Perplexity Pro, ChatGPT Plus, Canva Pro — what each is good for, what to avoid, a setup tip, and a link to open the tool), and team-specific prompt libraries for 26 teams — All Staff plus 25 program/project/functional teams across 6 verticals (Urban Planning and Spatial Design, Civic Participation and Grassroots Engagement, Public Finance Management, Regional State Program Deployments, Sectoral Policies and National Advocacy, and Horizontal Support and Institutional Strategy) — with fuzzy search and a dedicated sidebar/mobile submenu for jumping straight to a team.
 
 ## Tech stack
 
@@ -48,7 +48,7 @@ public/
 
 ## Editing content
 
-Almost all text on the page — hero copy, principles, the safety table, the Dos & Don'ts groups, the tool cards, prompt examples, team-prompt groups — lives in [content/playbook.ts](content/playbook.ts). Adding a prompt to an existing team, a row to a table, a tool card, or a Dos & Don'ts item is a copy-only change there. No component changes are needed unless you're adding a new *kind* of section (see [CLAUDE.md](CLAUDE.md) for that gotcha).
+Almost all text on the page — hero copy, principles, the safety table, the Dos & Don'ts groups, the tool cards, prompt examples, team-prompt groups — lives in [content/playbook.ts](content/playbook.ts). Adding a prompt to an existing team, a row to a table, a tool card, a Dos & Don'ts item, or an AI-primer resource link is a copy-only change there. No component changes are needed unless you're adding a new *kind* of section (see [CLAUDE.md](CLAUDE.md) for that gotcha).
 
 ## Deployment
 
