@@ -8,6 +8,7 @@ An internal, single-page Next.js app for Janaagraha staff: a searchable, copy-re
 - React 19 + TypeScript (strict)
 - Tailwind CSS v4
 - [lucide-react](https://lucide.dev) for icons
+- [Framer Motion](https://www.framer.com/motion/) for the scroll-in fade reveals (tool cards, prompt cards, section headers)
 
 ## Getting started
 

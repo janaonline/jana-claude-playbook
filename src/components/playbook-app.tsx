@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { motion, useReducedMotion } from "framer-motion";
 import { flushSync } from "react-dom";
 import {
   BookOpen,
@@ -174,9 +175,10 @@ function CopyButton({ value, label = "Copy" }: { value: string; label?: string }
   );
 }
 
-function PromptCard({ prompt }: { prompt: PromptExample }) {
+function PromptCard({ prompt, index = 0 }: { prompt: PromptExample; index?: number }) {
+  const reduce = useReducedMotion();
   return (
-    <article className="prompt-card">
+    <motion.article className="prompt-card" {...cardFade(reduce, index)}>
       <div className="prompt-card__header">
         <div>
           <p className="eyebrow">{prompt.audience}</p>
@@ -199,7 +201,7 @@ function PromptCard({ prompt }: { prompt: PromptExample }) {
         <ShieldCheck size={16} />
         <span>{prompt.review}</span>
       </div>
-    </article>
+    </motion.article>
   );
 }
 
@@ -288,8 +290,8 @@ function SectionContent({ section }: { section: PlaybookSection }) {
   if (section.kind === "prompts") {
     return (
       <div className="prompt-grid">
-        {section.prompts.map((prompt) => (
-          <PromptCard key={prompt.id} prompt={prompt} />
+        {section.prompts.map((prompt, index) => (
+          <PromptCard key={prompt.id} prompt={prompt} index={index} />
         ))}
       </div>
     );
@@ -370,11 +372,26 @@ const tierClassName: Record<ToolCard["tier"], string> = {
   Free: "tier-free",
 };
 
+// Shared structural scroll-reveal recipe (fade + rise, staggered by index).
+// Reuses the theme-transition ease and honors prefers-reduced-motion.
+const FADE_EASE = [0.4, 0, 0.2, 1] as const;
+function cardFade(reduce: boolean | null, index = 0) {
+  return {
+    initial: reduce ? false : { opacity: 0, y: 16 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, amount: 0.2 },
+    transition: reduce
+      ? { duration: 0 }
+      : { duration: 0.4, ease: FADE_EASE, delay: index * 0.05 },
+  } as const;
+}
+
 function ToolsGuide({ tools }: { tools: ToolCard[] }) {
+  const reduce = useReducedMotion();
   return (
     <div className="tool-grid">
-      {tools.map((tool) => (
-        <article className="tool-card" key={tool.id}>
+      {tools.map((tool, index) => (
+        <motion.article className="tool-card" key={tool.id} {...cardFade(reduce, index)}>
           <div className="tool-card__header">
             <div className="tool-card__name">
               <span className="tool-emoji" aria-hidden="true">
@@ -418,7 +435,7 @@ function ToolsGuide({ tools }: { tools: ToolCard[] }) {
               Open {tool.name} <ExternalLink size={13} />
             </a>
           </div>
-        </article>
+        </motion.article>
       ))}
     </div>
   );
@@ -483,6 +500,7 @@ function TeamPrompts({
 }) {
   const [teamSearch, setTeamSearch] = useState("");
   const teamTabsRef = useRef<HTMLDivElement>(null);
+  const reduce = useReducedMotion();
 
   const matchingGroups = useMemo(() => {
     let result = groups;
@@ -509,14 +527,14 @@ function TeamPrompts({
 
   return (
     <section className="content-section" id="team-prompts">
-      <div className="section-head">
+      <motion.div className="section-head" {...cardFade(reduce)}>
         <p className="eyebrow">Team library</p>
         <h2>Team-specific prompting</h2>
         <p>
           Copy-ready examples for common Janaagraha workflows. Each example includes a review
           checkpoint so the output never skips human judgement.
         </p>
-      </div>
+      </motion.div>
       <div className="team-search-box">
         <Search size={14} />
         <input
@@ -572,8 +590,8 @@ function TeamPrompts({
         <div className="team-panel">
           <p className="team-summary">{activeGroup.summary}</p>
           <div className="prompt-grid">
-            {activeGroup.prompts.map((prompt) => (
-              <PromptCard key={prompt.id} prompt={prompt} />
+            {activeGroup.prompts.map((prompt, index) => (
+              <PromptCard key={prompt.id} prompt={prompt} index={index} />
             ))}
           </div>
         </div>
@@ -590,6 +608,7 @@ export function PlaybookApp({ content }: { content: PlaybookContent }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [progress, setProgress] = useState(0);
   const [activeTeam, setActiveTeam] = useState(content.teamPromptGroups[0]?.id ?? "");
+  const reduce = useReducedMotion();
 
   function goToTeam(teamId: string) {
     setActiveTeam(teamId);
@@ -643,13 +662,25 @@ export function PlaybookApp({ content }: { content: PlaybookContent }) {
       return;
     }
 
+    // The ::view-transition-new(root) pseudo-element's box is the visual viewport,
+    // so the reveal origin is the toggle button's viewport-relative center (the
+    // header is sticky, so this stays correct at any scroll position). Express the
+    // circle in PERCENTAGES rather than pixels: percentages resolve against the
+    // pseudo's own box, so the origin lands in the right place even if a browser
+    // ever sizes that box differently from the CSS pixel viewport.
     const rect = event.currentTarget.getBoundingClientRect();
     const x = rect.left + rect.width / 2;
     const y = rect.top + rect.height / 2;
-    const endRadius = Math.hypot(
+    const xPct = (x / window.innerWidth) * 100;
+    const yPct = (y / window.innerHeight) * 100;
+    // Farthest-corner distance, expressed as a % of the length CSS uses to resolve
+    // a circle() percentage radius: sqrt(w² + h²) / √2.
+    const endPx = Math.hypot(
       Math.max(x, window.innerWidth - x),
       Math.max(y, window.innerHeight - y),
     );
+    const refLen = Math.hypot(window.innerWidth, window.innerHeight) / Math.SQRT2;
+    const endPct = (endPx / refLen) * 100;
 
     const transition = viewTransitionDocument.startViewTransition(() => {
       applyTheme(targetTheme);
@@ -660,8 +691,8 @@ export function PlaybookApp({ content }: { content: PlaybookContent }) {
         document.documentElement.animate(
           {
             clipPath: [
-              `circle(0px at ${x}px ${y}px)`,
-              `circle(${endRadius}px at ${x}px ${y}px)`,
+              `circle(0% at ${xPct}% ${yPct}%)`,
+              `circle(${endPct}% at ${xPct}% ${yPct}%)`,
             ],
           },
           {
@@ -820,14 +851,14 @@ export function PlaybookApp({ content }: { content: PlaybookContent }) {
               const Icon = iconForSection[section.id as keyof typeof iconForSection] ?? BookOpen;
               return (
                 <section className="content-section" id={section.id} key={section.id}>
-                  <div className="section-head">
+                  <motion.div className="section-head" {...cardFade(reduce)}>
                     <p className="eyebrow">
                       <Icon size={15} />
                       {section.eyebrow}
                     </p>
                     <h2>{section.title}</h2>
                     <p>{section.summary}</p>
-                  </div>
+                  </motion.div>
                   <SectionContent section={section} />
                 </section>
               );
