@@ -6,6 +6,7 @@ export const toolkitContent: PlaybookContent = {
     "Your starter kit for the AI Pilot — prompting basics, data safety rules, tool guides, and copy-ready templates for every team.",
   updated: "June 2026",
   nav: [
+    { id: "primer", label: "AI Primer" },
     { id: "essentials", label: "Essentials" },
     { id: "setup", label: "Setup" },
     { id: "safety", label: "Safety" },
@@ -34,6 +35,83 @@ export const toolkitContent: PlaybookContent = {
     ],
   },
   sections: [
+    {
+      id: "primer",
+      eyebrow: "New to AI? Start here",
+      title: "A plain-language primer for using AI at work",
+      summary:
+        "If you have never used an AI tool before, start here. A few simple ideas make the difference between a frustrating chat and a genuinely useful first draft — no technical background needed.",
+      kind: "primer",
+      points: [
+        {
+          title: "Think of it as a fast, eager assistant — not an oracle",
+          detail:
+            "AI is brilliant at drafting, summarising, and reformatting in seconds. It is not a source of truth: it can sound completely confident and still be wrong. Use it to save time, then apply your own judgement.",
+        },
+        {
+          title: "You talk to it in plain English",
+          detail:
+            "There is no special syntax to learn. Type your request the way you would explain a task to a new colleague — in full sentences, in English or your preferred language. Clear beats clever.",
+        },
+        {
+          title: "Tell it who it is and what you want",
+          detail:
+            "The single biggest quality boost: open with a role and a task. \"You are a policy researcher at Janaagraha. Summarise the attached note for a ward meeting.\" This one habit is the heart of the 6-part formula in the Prompting section.",
+        },
+        {
+          title: "Every answer is a first draft — always check it",
+          detail:
+            "AI output is a starting point, never a finished deliverable. Verify facts, figures, dates, and names against a real source before anything is shared, published, or acted on. See the Dos & Don'ts and Safety sections.",
+        },
+        {
+          title: "Never paste sensitive or private data",
+          detail:
+            "No personal details, beneficiary records, HR data, or unpublished financials. When in doubt, anonymise or ask internally first. The Safety section has a simple traffic-light rule for what is safe to share.",
+        },
+        {
+          title: "Start small, then refine",
+          detail:
+            "Ask for one thing, read the reply, then say \"make it shorter\", \"add a table\", or \"more formal\". A conversation of small steps beats one giant request — and teaches you how the tool thinks.",
+        },
+      ],
+      resources: [
+        {
+          title: "Learn Prompting — Basics",
+          source: "Learn Prompting",
+          url: "https://learnprompting.org/docs/basics/introduction",
+          description:
+            "A free, non-technical introduction to prompting that has taught millions of beginners. Short lessons, plain language, no coding.",
+        },
+        {
+          title: "Elements of AI",
+          source: "University of Helsinki",
+          url: "https://www.elementsofai.com/",
+          description:
+            "A free foundational course on what AI actually is and isn't — the best starting point for understanding the technology before you use it.",
+        },
+        {
+          title: "Google AI Essentials",
+          source: "Google",
+          url: "https://grow.google/ai-essentials/",
+          description:
+            "A beginner course built by Google on using generative AI in everyday work, including a full module on using AI responsibly.",
+        },
+        {
+          title: "Introduction to Generative AI",
+          source: "Google Cloud Skills Boost",
+          url: "https://www.cloudskillsboost.google/course_templates/536",
+          description:
+            "A short, free explainer of what generative AI is, how it works at a conceptual level, and where prompting fits in — no technical background required.",
+        },
+        {
+          title: "Generative AI for Beginners",
+          source: "Microsoft",
+          url: "https://github.com/microsoft/generative-ai-for-beginners",
+          description:
+            "A free, self-paced course that walks through writing, iterating on, and checking prompts. Slightly more hands-on, for those who want to go further.",
+        },
+      ],
+    },
     {
       id: "essentials",
       eyebrow: "Start here",

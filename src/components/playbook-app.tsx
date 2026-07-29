@@ -12,6 +12,7 @@ import {
   Database,
   ExternalLink,
   FileText,
+  GraduationCap,
   Lightbulb,
   ListChecks,
   Menu,
@@ -49,6 +50,7 @@ type ViewTransitionAnimationOptions = KeyframeAnimationOptions & {
 };
 
 const iconForSection = {
+  primer: GraduationCap,
   essentials: Sparkles,
   setup: BookOpen,
   safety: ShieldCheck,
@@ -93,6 +95,17 @@ function sectionMatches(section: PlaybookSection, term: string) {
   if (section.kind === "principles") {
     return section.items.some((item) =>
       [item.title, item.detail].some((value) => includesTerm(value, term)),
+    );
+  }
+  if (section.kind === "primer") {
+    const pointsMatch = section.points.some((point) =>
+      [point.title, point.detail].some((value) => includesTerm(value, term)),
+    );
+    if (pointsMatch) return true;
+    return section.resources.some((resource) =>
+      [resource.title, resource.source, resource.description, resource.url].some((value) =>
+        includesTerm(value, term),
+      ),
     );
   }
   if (section.kind === "table") {
@@ -229,6 +242,41 @@ function SectionContent({ section }: { section: PlaybookSection }) {
             <p>{item.detail}</p>
           </div>
         ))}
+      </div>
+    );
+  }
+
+  if (section.kind === "primer") {
+    return (
+      <div className="primer">
+        <div className="principle-grid">
+          {section.points.map((point, index) => (
+            <div className="principle" key={point.title}>
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <h3>{point.title}</h3>
+              <p>{point.detail}</p>
+            </div>
+          ))}
+        </div>
+        <div className="resource-list">
+          {section.resources.map((resource) => (
+            <article className="resource-item" key={resource.url}>
+              <div className="resource-item__head">
+                <h3>{resource.title}</h3>
+                <span className="resource-source">{resource.source}</span>
+              </div>
+              <p className="muted">{resource.description}</p>
+              <a
+                className="tool-open-link"
+                href={resource.url}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Open {resource.title} <ExternalLink size={13} />
+              </a>
+            </article>
+          ))}
+        </div>
       </div>
     );
   }
