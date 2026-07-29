@@ -62,3 +62,9 @@ For copy-only changes (new prompt, new table row, new team-prompt group, new too
 ## Keeping docs current
 
 A skill at [.claude/skills/sync-project-docs/](.claude/skills/sync-project-docs/SKILL.md) re-verifies the build and refreshes this file and `README.md` against the current implementation. Prefer invoking it over hand-editing these two files after structural changes.
+
+## Response style
+
+Keep all narration brief, including while work is in progress: short status updates only (what was found, what changed direction, what's blocked) — no step-by-step play-by-play.
+
+Keep the end-of-turn implementation summary to at most 3 bullet points, each no more than 2 sentences. State only what changed and what to do next — don't narrate the steps taken or list every file touched; the diff already shows that.
